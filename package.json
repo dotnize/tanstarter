@@ -1,5 +1,5 @@
 {
-	"name": "@mugnavo/start",
+	"name": "tanstart",
 	"private": true,
 	"type": "module",
 	"scripts": {
