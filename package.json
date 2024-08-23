@@ -1,25 +1,29 @@
 {
-  "name": "@mugnavo/start",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "vinxi dev",
-    "build": "vinxi build",
-    "start": "vinxi start"
-  },
-  "dependencies": {
-    "@tanstack/react-router": "^1.49.2",
-    "@tanstack/start": "^1.49.5",
-    "@vitejs/plugin-react": "^4.3.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "vinxi": "^0.4.1"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.8.3",
-    "@types/react": "^18.3.4",
-    "@types/react-dom": "^18.3.0",
-    "typescript": "^5.5.4",
-    "vite-tsconfig-paths": "^5.0.1"
-  }
+	"name": "@mugnavo/start",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vinxi dev",
+		"build": "vinxi build",
+		"start": "vinxi start",
+		"lint": "biome check --write ."
+	},
+	"dependencies": {
+		"@tanstack/react-router": "^1.49.2",
+		"@tanstack/start": "^1.49.5",
+		"@vitejs/plugin-react": "^4.3.1",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"vinxi": "^0.4.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.3",
+		"@types/react": "^18.3.4",
+		"@types/react-dom": "^18.3.0",
+		"autoprefixer": "^10.4.20",
+		"postcss": "^8.4.41",
+		"tailwindcss": "^3.4.10",
+		"typescript": "^5.5.4",
+		"vite-tsconfig-paths": "^5.0.1"
+	}
 }

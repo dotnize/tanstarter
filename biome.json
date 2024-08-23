@@ -15,5 +15,8 @@
 		"indentWidth": 2,
 		"lineWidth": 90,
 		"lineEnding": "lf"
+	},
+	"files": {
+		"ignore": ["app/routeTree.gen.ts", ".vscode/settings.json"]
 	}
 }
