@@ -13,7 +13,8 @@
 		"**/node_modules": true,
 
 		"pnpm-lock.yaml": true,
-		"postcss.config.js": true
+		"postcss.config.js": true,
+		".editorconfig": true
 	},
 
 	// always choose typescript from node_modules

@@ -5,6 +5,6 @@ import { createRouter } from "./router";
 const router = createRouter();
 
 hydrateRoot(
-	document.getElementById("root") as HTMLElement,
-	<StartClient router={router} />,
+  document.getElementById("root") as HTMLElement,
+  <StartClient router={router} />,
 );
