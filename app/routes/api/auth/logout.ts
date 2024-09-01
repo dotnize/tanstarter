@@ -1,38 +1,25 @@
 import { createAPIFileRoute } from "@tanstack/start/api";
+import { parseCookies, setCookie, setHeader } from "vinxi/http";
 import { lucia } from "~/server/auth";
 
 export const Route = createAPIFileRoute("/api/auth/logout")({
-  POST: async ({ request }) => {
-    // TODO: cleanup boilerplate
-    const cookie = request.headers.get("cookie");
-    if (!cookie) {
-      return new Response(null, {
-        status: 401,
-        headers: {
-          Location: "/",
-        },
-      });
-    }
-    const sessionId = lucia.readSessionCookie(cookie);
+  POST: async () => {
+    setHeader("Location", "/");
+
+    const sessionId = parseCookies()[lucia.sessionCookieName];
     if (!sessionId) {
       return new Response(null, {
         status: 401,
-        headers: {
-          Location: "/",
-        },
       });
     }
 
     const { session } = await lucia.validateSession(sessionId);
     const sessionCookie = lucia.createBlankSessionCookie();
+    setCookie(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
 
     if (!session) {
       return new Response(null, {
         status: 401,
-        headers: {
-          "Set-Cookie": sessionCookie.serialize(),
-          Location: "/",
-        },
       });
     }
 
@@ -40,10 +27,6 @@ export const Route = createAPIFileRoute("/api/auth/logout")({
 
     return new Response(null, {
       status: 302,
-      headers: {
-        Location: "/",
-        "Set-Cookie": sessionCookie.serialize(),
-      },
     });
   },
 });
