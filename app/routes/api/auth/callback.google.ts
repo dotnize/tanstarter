@@ -2,7 +2,7 @@ import { createAPIFileRoute } from "@tanstack/start/api";
 import { OAuth2RequestError } from "arctic";
 import { and, eq } from "drizzle-orm";
 import { generateIdFromEntropySize } from "lucia";
-import { parseCookies } from "oslo/cookie";
+import { parseCookies } from "vinxi/http";
 import { google, lucia } from "~/server/auth";
 import { db } from "~/server/db";
 import { oauthAccount, user } from "~/server/db/schema";
@@ -24,9 +24,9 @@ export const Route = createAPIFileRoute("/api/auth/callback/google")({
     const code = url.searchParams.get("code");
     const state = url.searchParams.get("state");
 
-    const cookies = parseCookies(request.headers.get("cookie") || "");
-    const storedState = cookies.get("google_oauth_state");
-    const storedCodeVerifier = cookies.get("google_code_verifier");
+    const cookies = parseCookies();
+    const storedState = cookies.google_oauth_state;
+    const storedCodeVerifier = cookies.google_code_verifier;
 
     if (!code || !state || !storedState || !storedCodeVerifier || state !== storedState) {
       return new Response(null, {

@@ -2,7 +2,7 @@ import { createAPIFileRoute } from "@tanstack/start/api";
 import { OAuth2RequestError } from "arctic";
 import { and, eq } from "drizzle-orm";
 import { generateIdFromEntropySize } from "lucia";
-import { parseCookies } from "oslo/cookie";
+import { parseCookies } from "vinxi/http";
 import { facebook, lucia } from "~/server/auth";
 import { db } from "~/server/db";
 import { oauthAccount, user } from "~/server/db/schema";
@@ -24,8 +24,8 @@ export const Route = createAPIFileRoute("/api/auth/callback/facebook")({
     const code = url.searchParams.get("code");
     const state = url.searchParams.get("state");
 
-    const cookies = parseCookies(request.headers.get("cookie") || "");
-    const storedState = cookies.get("facebook_oauth_state");
+    const cookies = parseCookies();
+    const storedState = cookies.facebook_oauth_state;
 
     if (!code || !state || !storedState || state !== storedState) {
       return new Response(null, {
