@@ -1,37 +1,39 @@
 {
-	// hide misc files that we most likely don't need to see
-	"files.exclude": {
-		"**/.git": true,
-		"**/.svn": true,
-		"**/.hg": true,
-		"**/CVS": true,
-		"**/.DS_Store": true,
-		"**/Thumbs.db": true,
-		"**/.next": true,
-		"**/out": true,
-		"**/build": true,
-		"**/node_modules": true,
+  // hide misc files that we most likely don't need to see
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.vinxi": true,
+    "**/.vercel": true,
+    "**/out": true,
+    "**/build": true,
+    "**/node_modules": true,
 
-		"pnpm-lock.yaml": true,
-		"postcss.config.js": true,
-		".editorconfig": true
-	},
+    "pnpm-lock.yaml": true,
+    "postcss.config.js": true,
+    ".editorconfig": true,
+    ".prettierrc": true
+  },
 
-	// always choose typescript from node_modules
-	"typescript.tsdk": "./node_modules/typescript/lib",
+  // always choose typescript from node_modules
+  "typescript.tsdk": "./node_modules/typescript/lib",
 
-	// use LF line endings
-	"files.eol": "\n",
+  // use LF line endings
+  "files.eol": "\n",
 
-	// smol performance improvements
-	"editor.minimap.renderCharacters": false,
+  // smol performance improvements
+  "editor.minimap.renderCharacters": false,
 
-	// set biome as default formatter for json, ts, tsx, js, jsx
-	"[json][jsonc][typescript][typescriptreact][javascript][javascriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	},
+  // set prettier as default formatter for json, ts, tsx, js, jsx, html, css
+  "[json][jsonc][typescript][typescriptreact][javascript][javascriptreact][html][css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 
-	// auto-format on save & paste
-	"editor.formatOnSave": true,
-	"editor.formatOnPaste": true
+  // auto-format on save & paste
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true
 }

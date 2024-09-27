@@ -2,7 +2,7 @@ import { Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-rout
 import { Body, Head, Html, Meta, Scripts } from "@tanstack/start";
 
 import { getSession } from "~/server/functions";
-// @ts-expect-error
+// @ts-expect-error import with a query string
 import appCss from "~/styles/app.css?url";
 
 export const Route = createRootRoute({
