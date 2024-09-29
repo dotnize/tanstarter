@@ -3,13 +3,10 @@ import { Button } from "~/components/ui/button";
 
 export const Route = createFileRoute("/")({
   component: Home,
-  loader: ({ context }) => {
-    return context;
-  },
 });
 
 function Home() {
-  const { user } = Route.useLoaderData();
+  const { user } = Route.useRouteContext();
 
   return (
     <div className="flex flex-col gap-4 p-6">
