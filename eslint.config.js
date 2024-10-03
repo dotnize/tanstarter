@@ -11,19 +11,20 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   { ignores: ["dist", ".vinxi", ".vercel", ".output", "build/"] },
   {
+    files: ["**/*.{ts,tsx}"],
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
-      react.configs.recommended,
+      eslintConfigPrettier,
       ...pluginQuery.configs["flat/recommended"],
       ...pluginRouter.configs["flat/recommended"],
-      eslintConfigPrettier,
     ],
+  },
+  {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.node,
       },
     },
     plugins: {
@@ -32,5 +33,16 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
     },
+  },
+  {
+    files: ["**/*.{ts,tsx}"],
+    languageOptions: {
+      parserOptions: {
+        parser: tseslint.parser,
+        project: "./tsconfig.json",
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    ...react.configs["recommended-type-checked"],
   },
 );
