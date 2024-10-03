@@ -1,11 +1,18 @@
-import { Outlet, ScrollRestoration, createRootRoute } from "@tanstack/react-router";
+import type { QueryClient } from "@tanstack/react-query";
+import {
+  Outlet,
+  ScrollRestoration,
+  createRootRouteWithContext,
+} from "@tanstack/react-router";
 import { Body, Head, Html, Meta, Scripts } from "@tanstack/start";
 
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+
 import { getSession } from "~/server/functions";
-// @ts-expect-error import with a query string
 import appCss from "~/styles/app.css?url";
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   meta: () => [
     {
       charSet: "utf-8",
@@ -43,6 +50,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <Body>
         {children}
         <ScrollRestoration />
+        <TanStackRouterDevtools position="bottom-right" />
+        <ReactQueryDevtools buttonPosition="bottom-left" />
         <Scripts />
       </Body>
     </Html>
