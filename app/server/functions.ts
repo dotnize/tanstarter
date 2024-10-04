@@ -2,7 +2,7 @@ import { createServerFn, json } from "@tanstack/start";
 import { parseCookies, setCookie } from "vinxi/http";
 import { lucia } from "~/server/auth";
 
-export const getSession = createServerFn("GET", async () => {
+export const getUser = createServerFn("GET", async () => {
   const sessionId = parseCookies()[lucia.sessionCookieName];
   if (!sessionId) {
     return json({ user: null });

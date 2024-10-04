@@ -9,7 +9,7 @@ import { Body, Head, Html, Meta, Scripts } from "@tanstack/start";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
-import { getSession } from "~/server/functions";
+import { getUser } from "~/server/functions";
 import appCss from "~/styles/app.css?url";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -28,8 +28,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   component: RootComponent,
   links: () => [{ rel: "stylesheet", href: appCss }],
   beforeLoad: async () => {
-    const data = await getSession();
-    return data;
+    const userData = await getUser();
+    return {
+      user: userData.user,
+    };
   },
 });
 
