@@ -1,23 +1,21 @@
 import { createServerFn, json } from "@tanstack/start";
-import { parseCookies, setCookie } from "vinxi/http";
-import { lucia } from "~/server/auth";
+import { deleteCookie, getCookie } from "vinxi/http";
+import { setSessionTokenCookie, validateSessionToken } from "~/server/auth";
 
 export const getUser = createServerFn("GET", async () => {
-  const sessionId = parseCookies()[lucia.sessionCookieName];
-  if (!sessionId) {
+  const token = getCookie("session");
+  if (!token) {
     return json({ user: null });
   }
 
-  const result = await lucia.validateSession(sessionId);
+  const { session, user } = await validateSessionToken(token);
 
-  if (result.session?.fresh) {
-    const sessionCookie = lucia.createSessionCookie(result.session.id);
-    setCookie(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
-  }
-  if (!result.session) {
-    const sessionCookie = lucia.createBlankSessionCookie();
-    setCookie(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+  if (session === null) {
+    deleteCookie("session");
+    return json({ user: null });
   }
 
-  return json({ user: result.user });
+  setSessionTokenCookie(token, session.expires_at);
+
+  return json({ user });
 });

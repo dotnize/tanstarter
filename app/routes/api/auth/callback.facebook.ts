@@ -1,9 +1,13 @@
 import { createAPIFileRoute } from "@tanstack/start/api";
 import { OAuth2RequestError } from "arctic";
 import { and, eq } from "drizzle-orm";
-import { generateIdFromEntropySize } from "lucia";
 import { parseCookies } from "vinxi/http";
-import { facebook, lucia } from "~/server/auth";
+import {
+  createSession,
+  facebook,
+  generateSessionToken,
+  setSessionTokenCookie,
+} from "~/server/auth";
 import { db } from "~/server/db";
 import { oauthAccount, user } from "~/server/db/schema";
 
@@ -46,8 +50,8 @@ export const Route = createAPIFileRoute("/api/auth/callback/facebook")({
 
       const existingUser = await db.query.oauthAccount.findFirst({
         where: and(
-          eq(oauthAccount.providerId, "facebook"),
-          eq(oauthAccount.providerUserId, facebookUser.id),
+          eq(oauthAccount.provider_id, "facebook"),
+          eq(oauthAccount.provider_user_id, facebookUser.id),
         ),
       });
 
@@ -58,40 +62,43 @@ export const Route = createAPIFileRoute("/api/auth/callback/facebook")({
        */
 
       if (existingUser) {
-        const session = await lucia.createSession(existingUser.userId, {});
-        const sessionCookie = lucia.createSessionCookie(session.id);
+        const token = generateSessionToken();
+        const session = await createSession(token, existingUser.user_id);
+        setSessionTokenCookie(token, session.expires_at);
         return new Response(null, {
           status: 302,
           headers: {
             Location: "/",
-            "Set-Cookie": sessionCookie.serialize(),
           },
         });
       }
 
-      const userId = generateIdFromEntropySize(10); // 16 characters
-
-      await db.transaction(async (tx) => {
-        await tx.insert(user).values({
-          id: userId,
-          email: facebookUser.email,
-          name: facebookUser.name,
-          firstName: facebookUser.first_name,
-          lastName: facebookUser.last_name,
-          avatarUrl: facebookUser.picture.data.url,
+      const userId = await db.transaction(async (tx) => {
+        const [{ newId }] = await tx
+          .insert(user)
+          .values({
+            email: facebookUser.email,
+            name: facebookUser.name,
+            first_name: facebookUser.first_name,
+            last_name: facebookUser.last_name,
+            avatar_url: facebookUser.picture.data.url,
+          })
+          .returning({ newId: user.id });
+        await tx.insert(oauthAccount).values({
+          provider_id: "facebook",
+          provider_user_id: facebookUser.id,
+          user_id: newId,
         });
-        await tx
-          .insert(oauthAccount)
-          .values({ providerId: "facebook", providerUserId: facebookUser.id, userId });
+        return newId;
       });
 
-      const session = await lucia.createSession(userId, {});
-      const sessionCookie = lucia.createSessionCookie(session.id);
+      const token = generateSessionToken();
+      const session = await createSession(token, userId);
+      setSessionTokenCookie(token, session.expires_at);
       return new Response(null, {
         status: 302,
         headers: {
           Location: "/",
-          "Set-Cookie": sessionCookie.serialize(),
         },
       });
     } catch (e) {

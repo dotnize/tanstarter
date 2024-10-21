@@ -19,21 +19,25 @@ import { Route as DashboardIndexImport } from './routes/dashboard/index'
 // Create/Update Routes
 
 const SigninRoute = SigninImport.update({
+  id: '/signin',
   path: '/signin',
   getParentRoute: () => rootRoute,
 } as any)
 
 const DashboardRoute = DashboardImport.update({
+  id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => rootRoute,
 } as any)
 
 const IndexRoute = IndexImport.update({
+  id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
 const DashboardIndexRoute = DashboardIndexImport.update({
+  id: '/',
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)

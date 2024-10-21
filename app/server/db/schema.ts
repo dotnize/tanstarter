@@ -1,36 +1,38 @@
-import { pgTable, primaryKey, text, timestamp } from "drizzle-orm/pg-core";
+import { integer, pgTable, primaryKey, text, timestamp } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
-  id: text("id").primaryKey(),
-  name: text("name"),
-  firstName: text("first_name"),
-  lastName: text("last_name"),
-  avatarUrl: text("avatar_url"),
-  email: text("email").unique().notNull(),
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  name: text(),
+  first_name: text(),
+  last_name: text(),
+  avatar_url: text(),
+  email: text().unique().notNull(),
 
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  setupAt: timestamp("setup_at"),
-  termsAcceptedAt: timestamp("terms_accepted_at"),
+  created_at: timestamp().defaultNow().notNull(),
+  setup_at: timestamp(),
+  terms_accepted_at: timestamp(),
 });
 
 export const oauthAccount = pgTable(
   "oauth_account",
   {
-    providerId: text("provider_id"),
-    providerUserId: text("provider_user_id"),
-    userId: text("user_id")
+    provider_id: text(),
+    provider_user_id: text(),
+    user_id: integer()
       .notNull()
       .references(() => user.id),
   },
-  (table) => ({ pk: primaryKey({ columns: [table.providerId, table.providerUserId] }) }),
+  (table) => ({
+    pk: primaryKey({ columns: [table.provider_id, table.provider_user_id] }),
+  }),
 );
 
 export const session = pgTable("session", {
-  id: text("id").primaryKey(),
-  userId: text("user_id")
+  id: text().primaryKey(),
+  user_id: integer()
     .notNull()
     .references(() => user.id),
-  expiresAt: timestamp("expires_at", {
+  expires_at: timestamp({
     withTimezone: true,
     mode: "date",
   }).notNull(),
@@ -39,3 +41,4 @@ export const session = pgTable("session", {
 // TODO: tables for payment gateways
 
 export type User = typeof user.$inferSelect;
+export type Session = typeof session.$inferSelect;

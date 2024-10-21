@@ -13,6 +13,13 @@ import { getUser } from "~/server/functions";
 import appCss from "~/styles/app.css?url";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  beforeLoad: async () => {
+    const userData = await getUser();
+    return {
+      user: userData.user,
+    };
+  },
+  component: RootComponent,
   meta: () => [
     {
       charSet: "utf-8",
@@ -25,14 +32,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       title: "TanStarter",
     },
   ],
-  component: RootComponent,
   links: () => [{ rel: "stylesheet", href: appCss }],
-  beforeLoad: async () => {
-    const userData = await getUser();
-    return {
-      user: userData.user,
-    };
-  },
 });
 
 function RootComponent() {

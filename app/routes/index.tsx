@@ -18,7 +18,7 @@ function Home() {
 
       {user ? (
         <div className="flex flex-col gap-2">
-          <p>Welcome back, {user.name || user.firstName}!</p>
+          <p>Welcome back, {user.name || user.first_name}!</p>
           <Button type="button" asChild className="w-fit" size="lg">
             <Link to="/dashboard">Go to Dashboard</Link>
           </Button>

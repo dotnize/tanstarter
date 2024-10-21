@@ -1,38 +1,84 @@
-import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
-import { Lucia } from "lucia";
-
+import { sha256 } from "@oslojs/crypto/sha2";
+import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from "@oslojs/encoding";
 import { Facebook, GitHub, Google } from "arctic";
 
+import { eq } from "drizzle-orm";
 import { db } from "~/server/db";
 import {
-  type User as DatabaseUser,
+  type Session,
   session as sessionTable,
   user as userTable,
 } from "~/server/db/schema";
 
-const adapter = new DrizzlePostgreSQLAdapter(db, sessionTable, userTable);
+import { setCookie } from "vinxi/http";
 
-export const lucia = new Lucia(adapter, {
-  sessionCookie: {
-    attributes: {
-      secure: process.env.NODE_ENV === "production",
-    },
-  },
-  getUserAttributes: (attr) => ({
-    id: attr.id,
-    name: attr.name,
-    firstName: attr.firstName,
-    lastName: attr.lastName,
-    avatarUrl: attr.avatarUrl,
-    email: attr.email,
-  }),
-});
+export function generateSessionToken(): string {
+  const bytes = new Uint8Array(20);
+  crypto.getRandomValues(bytes);
+  return encodeBase32LowerCaseNoPadding(bytes);
+}
 
-declare module "lucia" {
-  interface Register {
-    Lucia: typeof lucia;
-    DatabaseUserAttributes: DatabaseUser;
+export async function createSession(token: string, userId: number): Promise<Session> {
+  const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
+  const session: Session = {
+    id: sessionId,
+    user_id: userId,
+    expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
+  };
+  await db.insert(sessionTable).values(session);
+  return session;
+}
+
+export async function validateSessionToken(token: string) {
+  const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
+  const result = await db
+    .select({ user: userTable, session: sessionTable })
+    .from(sessionTable)
+    .innerJoin(userTable, eq(sessionTable.user_id, userTable.id))
+    .where(eq(sessionTable.id, sessionId));
+  if (result.length < 1) {
+    return { session: null, user: null };
   }
+  const { user, session } = result[0];
+  if (Date.now() >= session.expires_at.getTime()) {
+    await db.delete(sessionTable).where(eq(sessionTable.id, session.id));
+    return { session: null, user: null };
+  }
+  if (Date.now() >= session.expires_at.getTime() - 1000 * 60 * 60 * 24 * 15) {
+    session.expires_at = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
+    await db
+      .update(sessionTable)
+      .set({
+        expires_at: session.expires_at,
+      })
+      .where(eq(sessionTable.id, session.id));
+  }
+
+  // Only return the necessary user data for the client
+  const filteredUser = {
+    id: user.id,
+    name: user.name,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    avatar_url: user.avatar_url,
+    email: user.email,
+  };
+
+  return { session, user: filteredUser };
+}
+
+export async function invalidateSession(sessionId: string): Promise<void> {
+  await db.delete(sessionTable).where(eq(sessionTable.id, sessionId));
+}
+
+export function setSessionTokenCookie(token: string, expiresAt: Date) {
+  setCookie("session", token, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    expires: expiresAt,
+    path: "/",
+  });
 }
 
 // OAuth2 Providers

@@ -1,9 +1,13 @@
 import { createAPIFileRoute } from "@tanstack/start/api";
 import { OAuth2RequestError } from "arctic";
 import { and, eq } from "drizzle-orm";
-import { generateIdFromEntropySize } from "lucia";
 import { parseCookies } from "vinxi/http";
-import { github, lucia } from "~/server/auth";
+import {
+  createSession,
+  generateSessionToken,
+  github,
+  setSessionTokenCookie,
+} from "~/server/auth";
 import { db } from "~/server/db";
 import { oauthAccount, user } from "~/server/db/schema";
 
@@ -42,8 +46,8 @@ export const Route = createAPIFileRoute("/api/auth/callback/github")({
 
       const existingUser = await db.query.oauthAccount.findFirst({
         where: and(
-          eq(oauthAccount.providerId, "github"),
-          eq(oauthAccount.providerUserId, githubUser.id),
+          eq(oauthAccount.provider_id, "github"),
+          eq(oauthAccount.provider_user_id, githubUser.id),
         ),
       });
 
@@ -54,38 +58,41 @@ export const Route = createAPIFileRoute("/api/auth/callback/github")({
        */
 
       if (existingUser) {
-        const session = await lucia.createSession(existingUser.userId, {});
-        const sessionCookie = lucia.createSessionCookie(session.id);
+        const token = generateSessionToken();
+        const session = await createSession(token, existingUser.user_id);
+        setSessionTokenCookie(token, session.expires_at);
         return new Response(null, {
           status: 302,
           headers: {
             Location: "/",
-            "Set-Cookie": sessionCookie.serialize(),
           },
         });
       }
 
-      const userId = generateIdFromEntropySize(10); // 16 characters
-
-      await db.transaction(async (tx) => {
-        await tx.insert(user).values({
-          id: userId,
-          email: githubUser.email,
-          name: githubUser.name || githubUser.login,
-          avatarUrl: githubUser.avatar_url,
+      const userId = await db.transaction(async (tx) => {
+        const [{ newId }] = await tx
+          .insert(user)
+          .values({
+            email: githubUser.email,
+            name: githubUser.name || githubUser.login,
+            avatar_url: githubUser.avatar_url,
+          })
+          .returning({ newId: user.id });
+        await tx.insert(oauthAccount).values({
+          provider_id: "github",
+          provider_user_id: githubUser.id,
+          user_id: newId,
         });
-        await tx
-          .insert(oauthAccount)
-          .values({ providerId: "github", providerUserId: githubUser.id, userId });
+        return newId;
       });
 
-      const session = await lucia.createSession(userId, {});
-      const sessionCookie = lucia.createSessionCookie(session.id);
+      const token = generateSessionToken();
+      const session = await createSession(token, userId);
+      setSessionTokenCookie(token, session.expires_at);
       return new Response(null, {
         status: 302,
         headers: {
           Location: "/",
-          "Set-Cookie": sessionCookie.serialize(),
         },
       });
     } catch (e) {

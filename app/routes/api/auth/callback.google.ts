@@ -1,9 +1,13 @@
 import { createAPIFileRoute } from "@tanstack/start/api";
 import { OAuth2RequestError } from "arctic";
 import { and, eq } from "drizzle-orm";
-import { generateIdFromEntropySize } from "lucia";
 import { parseCookies } from "vinxi/http";
-import { google, lucia } from "~/server/auth";
+import {
+  createSession,
+  generateSessionToken,
+  google,
+  setSessionTokenCookie,
+} from "~/server/auth";
 import { db } from "~/server/db";
 import { oauthAccount, user } from "~/server/db/schema";
 
@@ -45,8 +49,8 @@ export const Route = createAPIFileRoute("/api/auth/callback/google")({
 
       const existingUser = await db.query.oauthAccount.findFirst({
         where: and(
-          eq(oauthAccount.providerId, "google"),
-          eq(oauthAccount.providerUserId, googleUser.sub),
+          eq(oauthAccount.provider_id, "google"),
+          eq(oauthAccount.provider_user_id, googleUser.sub),
         ),
       });
 
@@ -57,40 +61,43 @@ export const Route = createAPIFileRoute("/api/auth/callback/google")({
        */
 
       if (existingUser) {
-        const session = await lucia.createSession(existingUser.userId, {});
-        const sessionCookie = lucia.createSessionCookie(session.id);
+        const token = generateSessionToken();
+        const session = await createSession(token, existingUser.user_id);
+        setSessionTokenCookie(token, session.expires_at);
         return new Response(null, {
           status: 302,
           headers: {
             Location: "/",
-            "Set-Cookie": sessionCookie.serialize(),
           },
         });
       }
 
-      const userId = generateIdFromEntropySize(10); // 16 characters
-
-      await db.transaction(async (tx) => {
-        await tx.insert(user).values({
-          id: userId,
-          email: googleUser.email,
-          name: googleUser.name,
-          firstName: googleUser.given_name,
-          lastName: googleUser.family_name,
-          avatarUrl: googleUser.picture,
+      const userId = await db.transaction(async (tx) => {
+        const [{ newId }] = await tx
+          .insert(user)
+          .values({
+            email: googleUser.email,
+            name: googleUser.name,
+            first_name: googleUser.given_name,
+            last_name: googleUser.family_name,
+            avatar_url: googleUser.picture,
+          })
+          .returning({ newId: user.id });
+        await tx.insert(oauthAccount).values({
+          provider_id: "google",
+          provider_user_id: googleUser.sub,
+          user_id: newId,
         });
-        await tx
-          .insert(oauthAccount)
-          .values({ providerId: "google", providerUserId: googleUser.sub, userId });
+        return newId;
       });
 
-      const session = await lucia.createSession(userId, {});
-      const sessionCookie = lucia.createSessionCookie(session.id);
+      const token = generateSessionToken();
+      const session = await createSession(token, userId);
+      setSessionTokenCookie(token, session.expires_at);
       return new Response(null, {
         status: 302,
         headers: {
           Location: "/",
-          "Set-Cookie": sessionCookie.serialize(),
         },
       });
     } catch (e) {
