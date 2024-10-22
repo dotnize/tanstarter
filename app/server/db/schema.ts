@@ -9,6 +9,9 @@ export const user = pgTable("user", {
   email: text().unique().notNull(),
 
   created_at: timestamp().defaultNow().notNull(),
+  updated_at: timestamp()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
   setup_at: timestamp(),
   terms_accepted_at: timestamp(),
 });
