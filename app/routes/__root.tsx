@@ -14,10 +14,8 @@ import appCss from "~/styles/app.css?url";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   beforeLoad: async () => {
-    const userData = await getUser();
-    return {
-      user: userData.user,
-    };
+    const user = await getUser();
+    return { user };
   },
   component: RootComponent,
   meta: () => [

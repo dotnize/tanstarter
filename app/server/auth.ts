@@ -1,8 +1,9 @@
 import { sha256 } from "@oslojs/crypto/sha2";
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from "@oslojs/encoding";
 import { Facebook, GitHub, Google } from "arctic";
-
 import { eq } from "drizzle-orm";
+import { deleteCookie, getCookie, setCookie } from "vinxi/http";
+
 import { db } from "~/server/db";
 import {
   type Session,
@@ -10,7 +11,7 @@ import {
   user as userTable,
 } from "~/server/db/schema";
 
-import { setCookie } from "vinxi/http";
+export const SESSION_COOKIE_NAME = "session";
 
 export function generateSessionToken(): string {
   const bytes = new Uint8Array(20);
@@ -72,13 +73,29 @@ export async function invalidateSession(sessionId: string): Promise<void> {
 }
 
 export function setSessionTokenCookie(token: string, expiresAt: Date) {
-  setCookie("session", token, {
+  setCookie(SESSION_COOKIE_NAME, token, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
     expires: expiresAt,
     path: "/",
   });
+}
+
+export async function getAuthSession({ refreshCookie } = { refreshCookie: true }) {
+  const token = getCookie(SESSION_COOKIE_NAME);
+  if (!token) {
+    return { session: null, user: null };
+  }
+  const { session, user } = await validateSessionToken(token);
+  if (session === null) {
+    deleteCookie(SESSION_COOKIE_NAME);
+    return { session: null, user: null };
+  }
+  if (refreshCookie) {
+    setSessionTokenCookie(token, session.expires_at);
+  }
+  return { session, user };
 }
 
 // OAuth2 Providers
