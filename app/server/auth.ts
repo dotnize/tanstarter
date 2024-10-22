@@ -1,6 +1,6 @@
 import { sha256 } from "@oslojs/crypto/sha2";
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from "@oslojs/encoding";
-import { Facebook, GitHub, Google } from "arctic";
+import { Discord, Facebook, GitHub, Google } from "arctic";
 import { eq } from "drizzle-orm";
 import { deleteCookie, getCookie, setCookie } from "vinxi/http";
 
@@ -99,6 +99,11 @@ export async function getAuthSession({ refreshCookie } = { refreshCookie: true }
 }
 
 // OAuth2 Providers
+export const discord = new Discord(
+  process.env.DISCORD_CLIENT_ID as string,
+  process.env.DISCORD_CLIENT_SECRET as string,
+  process.env.DISCORD_REDIRECT_URI as string,
+);
 export const facebook = new Facebook(
   process.env.FACEBOOK_CLIENT_ID as string,
   process.env.FACEBOOK_CLIENT_SECRET as string,

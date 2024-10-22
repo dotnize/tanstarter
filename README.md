@@ -12,5 +12,5 @@ Auth providers:
 - [x] Facebook
 - [x] GitHub
 - [x] Google
-- [ ] Discord
+- [x] Discord
 - [ ] Email (magic links/OTP)

@@ -19,6 +19,14 @@ export default function AuthPage() {
         Logo here
         <form method="GET" className="flex flex-col gap-2">
           <Button
+            formAction="/api/auth/discord"
+            type="submit"
+            variant="outline"
+            size="lg"
+          >
+            Sign in with Discord
+          </Button>
+          <Button
             formAction="/api/auth/facebook"
             type="submit"
             variant="outline"
@@ -32,7 +40,6 @@ export default function AuthPage() {
           <Button formAction="/api/auth/google" type="submit" variant="outline" size="lg">
             Sign in with Google
           </Button>
-          TODO: email/magic links?
         </form>
       </div>
     </div>
