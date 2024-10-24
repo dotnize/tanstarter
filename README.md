@@ -9,7 +9,6 @@ A minimal starter template for TanStack Start.
 
 Auth providers:
 
-- [x] Facebook
 - [x] GitHub
 - [x] Google
 - [x] Discord
