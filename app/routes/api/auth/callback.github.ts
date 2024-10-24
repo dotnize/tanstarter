@@ -35,6 +35,8 @@ export const Route = createAPIFileRoute("/api/auth/callback/github")({
       });
     }
 
+    const PROVIDER_ID = "github";
+
     try {
       const tokens = await github.validateAuthorizationCode(code);
       const githubUserResponse = await fetch("https://api.github.com/user", {
@@ -42,20 +44,14 @@ export const Route = createAPIFileRoute("/api/auth/callback/github")({
           Authorization: `Bearer ${tokens.accessToken()}`,
         },
       });
-      const githubUser: GitHubUser = await githubUserResponse.json();
+      const providerUser: GitHubUser = await githubUserResponse.json();
 
       const existingUser = await db.query.oauthAccount.findFirst({
         where: and(
-          eq(oauthAccount.provider_id, "github"),
-          eq(oauthAccount.provider_user_id, githubUser.id),
+          eq(oauthAccount.provider_id, PROVIDER_ID),
+          eq(oauthAccount.provider_user_id, providerUser.id),
         ),
       });
-
-      // TODO:
-      /**
-       * if no existingUser, check if there is a user with the same email
-       * then prompt to link the account (or just force?)
-       */
 
       if (existingUser) {
         const token = generateSessionToken();
@@ -67,20 +63,40 @@ export const Route = createAPIFileRoute("/api/auth/callback/github")({
             Location: "/",
           },
         });
+      } else {
+        const existingUserEmail = await db.query.user.findFirst({
+          where: eq(user.email, providerUser.email),
+        });
+        if (existingUserEmail) {
+          await db.insert(oauthAccount).values({
+            provider_id: PROVIDER_ID,
+            provider_user_id: providerUser.id,
+            user_id: existingUserEmail.id,
+          });
+          const token = generateSessionToken();
+          const session = await createSession(token, existingUserEmail.id);
+          setSessionTokenCookie(token, session.expires_at);
+          return new Response(null, {
+            status: 302,
+            headers: {
+              Location: "/",
+            },
+          });
+        }
       }
 
       const userId = await db.transaction(async (tx) => {
         const [{ newId }] = await tx
           .insert(user)
           .values({
-            email: githubUser.email,
-            name: githubUser.name || githubUser.login,
-            avatar_url: githubUser.avatar_url,
+            email: providerUser.email,
+            name: providerUser.name || providerUser.login,
+            avatar_url: providerUser.avatar_url,
           })
           .returning({ newId: user.id });
         await tx.insert(oauthAccount).values({
-          provider_id: "github",
-          provider_user_id: githubUser.id,
+          provider_id: PROVIDER_ID,
+          provider_user_id: providerUser.id,
           user_id: newId,
         });
         return newId;
@@ -96,11 +112,8 @@ export const Route = createAPIFileRoute("/api/auth/callback/github")({
         },
       });
     } catch (e) {
-      // TODO: dev debugging purposes
       console.log(e);
-      // the specific error message depends on the provider
       if (e instanceof OAuth2RequestError) {
-        // invalid code
         return new Response(null, {
           status: 400,
         });

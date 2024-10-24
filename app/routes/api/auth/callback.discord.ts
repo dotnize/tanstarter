@@ -35,6 +35,8 @@ export const Route = createAPIFileRoute("/api/auth/callback/discord")({
       });
     }
 
+    const PROVIDER_ID = "discord";
+
     try {
       const tokens = await discord.validateAuthorizationCode(code);
       const discordUserResponse = await fetch("https://discord.com/api/v10/users/@me", {
@@ -42,20 +44,14 @@ export const Route = createAPIFileRoute("/api/auth/callback/discord")({
           Authorization: `Bearer ${tokens.accessToken()}`,
         },
       });
-      const discordUser: DiscordUser = await discordUserResponse.json();
+      const providerUser: DiscordUser = await discordUserResponse.json();
 
       const existingUser = await db.query.oauthAccount.findFirst({
         where: and(
-          eq(oauthAccount.provider_id, "discord"),
-          eq(oauthAccount.provider_user_id, discordUser.id),
+          eq(oauthAccount.provider_id, PROVIDER_ID),
+          eq(oauthAccount.provider_user_id, providerUser.id),
         ),
       });
-
-      // TODO:
-      /**
-       * if no existingUser, check if there is a user with the same email
-       * then prompt to link the account (or just force?)
-       */
 
       if (existingUser) {
         const token = generateSessionToken();
@@ -67,22 +63,42 @@ export const Route = createAPIFileRoute("/api/auth/callback/discord")({
             Location: "/",
           },
         });
+      } else {
+        const existingUserEmail = await db.query.user.findFirst({
+          where: eq(user.email, providerUser.email),
+        });
+        if (existingUserEmail) {
+          await db.insert(oauthAccount).values({
+            provider_id: PROVIDER_ID,
+            provider_user_id: providerUser.id,
+            user_id: existingUserEmail.id,
+          });
+          const token = generateSessionToken();
+          const session = await createSession(token, existingUserEmail.id);
+          setSessionTokenCookie(token, session.expires_at);
+          return new Response(null, {
+            status: 302,
+            headers: {
+              Location: "/",
+            },
+          });
+        }
       }
 
       const userId = await db.transaction(async (tx) => {
         const [{ newId }] = await tx
           .insert(user)
           .values({
-            email: discordUser.email,
-            name: discordUser.global_name || discordUser.username,
-            avatar_url: discordUser.avatar
-              ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`
+            email: providerUser.email,
+            name: providerUser.global_name || providerUser.username,
+            avatar_url: providerUser.avatar
+              ? `https://cdn.discordapp.com/avatars/${providerUser.id}/${providerUser.avatar}.png`
               : null,
           })
           .returning({ newId: user.id });
         await tx.insert(oauthAccount).values({
-          provider_id: "discord",
-          provider_user_id: discordUser.id,
+          provider_id: PROVIDER_ID,
+          provider_user_id: providerUser.id,
           user_id: newId,
         });
         return newId;
@@ -98,11 +114,8 @@ export const Route = createAPIFileRoute("/api/auth/callback/discord")({
         },
       });
     } catch (e) {
-      // TODO: dev debugging purposes
       console.log(e);
-      // the specific error message depends on the provider
       if (e instanceof OAuth2RequestError) {
-        // invalid code
         return new Response(null, {
           status: 400,
         });
