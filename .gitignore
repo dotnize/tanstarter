@@ -5,12 +5,14 @@ yarn.lock
 .DS_Store
 .cache
 .env
+
 .vercel
 .output
 .vinxi
-
+.wrangler
+.netlify
+dist
 /build/
 /api/
 /server/build
 /public/build
-.vinxi
