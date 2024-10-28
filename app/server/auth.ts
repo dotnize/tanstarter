@@ -6,12 +6,19 @@ import { deleteCookie, getCookie, setCookie } from "vinxi/http";
 
 import { db } from "~/server/db";
 import {
-  type Session,
   session as sessionTable,
   user as userTable,
+  type Session,
+  type User,
 } from "~/server/db/schema";
 
 export const SESSION_COOKIE_NAME = "session";
+
+// Select the necessary user data for the client
+export type SessionUser = Pick<
+  User,
+  "id" | "name" | "first_name" | "last_name" | "avatar_url" | "email" | "setup_at"
+>;
 
 export function generateSessionToken(): string {
   const bytes = new Uint8Array(20);
@@ -56,13 +63,14 @@ export async function validateSessionToken(token: string) {
   }
 
   // Only return the necessary user data for the client
-  const filteredUser = {
+  const filteredUser: SessionUser = {
     id: user.id,
     name: user.name,
     first_name: user.first_name,
     last_name: user.last_name,
     avatar_url: user.avatar_url,
     email: user.email,
+    setup_at: user.setup_at,
   };
 
   return { session, user: filteredUser };
