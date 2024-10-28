@@ -16,7 +16,6 @@
     "**/build": true,
     "**/node_modules": true,
 
-    "pnpm-lock.yaml": true,
     "postcss.config.js": true,
     ".editorconfig": true,
     ".prettierrc": true
