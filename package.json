@@ -7,7 +7,7 @@
     "build": "vinxi build",
     "start": "vinxi start",
     "lint": "eslint .",
-    "format": "prettier --write . \"!**/{routeTree.gen.ts,pnpm-lock.yaml}\"",
+    "format": "prettier --write . \"!**/{routeTree.gen.ts,pnpm-lock.yaml,drizzle}\"",
     "db": "drizzle-kit",
     "ui": "pnpm dlx shadcn@latest"
   },
