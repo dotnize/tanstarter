@@ -16,7 +16,9 @@ function DashboardLayout() {
       <h1 className="text-4xl font-bold">Dashboard Layout</h1>
       <div className="flex items-center gap-2">
         This is a protected layout:
-        <pre className="rounded-md border bg-slate-50 p-1">routes/dashboard.tsx</pre>
+        <pre className="rounded-md border bg-card p-1 text-card-foreground">
+          routes/dashboard.tsx
+        </pre>
       </div>
 
       <Button type="button" asChild className="w-fit" size="lg">

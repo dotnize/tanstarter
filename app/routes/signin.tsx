@@ -15,7 +15,7 @@ export const Route = createFileRoute("/signin")({
 export default function AuthPage() {
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="flex flex-col items-center gap-8 rounded-xl border bg-muted p-10">
+      <div className="flex flex-col items-center gap-8 rounded-xl border bg-card p-10">
         Logo here
         <form method="GET" className="flex flex-col gap-2">
           <Button
