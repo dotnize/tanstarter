@@ -1,16 +1,25 @@
 import type { QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
+  createRootRouteWithContext,
   Outlet,
   ScrollRestoration,
-  createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { Body, Head, Html, Meta, Scripts } from "@tanstack/start";
-
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { lazy, Suspense } from "react";
 
 import { getUser } from "~/server/functions";
 import appCss from "~/styles/app.css?url";
+
+const TanStackRouterDevtools =
+  process.env.NODE_ENV === "production"
+    ? () => null // Render nothing in production
+    : lazy(() =>
+        // Lazy load in development
+        import("@tanstack/router-devtools").then((res) => ({
+          default: res.TanStackRouterDevtools,
+        })),
+      );
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   beforeLoad: async () => {
@@ -50,8 +59,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <Body>
         {children}
         <ScrollRestoration />
-        <TanStackRouterDevtools position="bottom-right" />
         <ReactQueryDevtools buttonPosition="bottom-left" />
+        <Suspense>
+          <TanStackRouterDevtools position="bottom-right" />
+        </Suspense>
         <Scripts />
         {/* eslint-disable-next-line @eslint-react/dom/no-dangerously-set-innerhtml */}
         <script
