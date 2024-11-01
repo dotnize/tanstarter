@@ -9,16 +9,9 @@ import {
   session as sessionTable,
   user as userTable,
   type Session,
-  type User,
 } from "~/server/db/schema";
 
 export const SESSION_COOKIE_NAME = "session";
-
-// Select the necessary user data for the client
-export type SessionUser = Pick<
-  User,
-  "id" | "name" | "first_name" | "last_name" | "avatar_url" | "email" | "setup_at"
->;
 
 export function generateSessionToken(): string {
   const bytes = new Uint8Array(20);
@@ -40,7 +33,19 @@ export async function createSession(token: string, userId: number): Promise<Sess
 export async function validateSessionToken(token: string) {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
   const result = await db
-    .select({ user: userTable, session: sessionTable })
+    .select({
+      user: {
+        // Only return the necessary user data for the client
+        id: userTable.id,
+        name: userTable.name,
+        first_name: userTable.first_name,
+        last_name: userTable.last_name,
+        avatar_url: userTable.avatar_url,
+        email: userTable.email,
+        setup_at: userTable.setup_at,
+      },
+      session: sessionTable,
+    })
     .from(sessionTable)
     .innerJoin(userTable, eq(sessionTable.user_id, userTable.id))
     .where(eq(sessionTable.id, sessionId));
@@ -62,19 +67,10 @@ export async function validateSessionToken(token: string) {
       .where(eq(sessionTable.id, session.id));
   }
 
-  // Only return the necessary user data for the client
-  const filteredUser: SessionUser = {
-    id: user.id,
-    name: user.name,
-    first_name: user.first_name,
-    last_name: user.last_name,
-    avatar_url: user.avatar_url,
-    email: user.email,
-    setup_at: user.setup_at,
-  };
-
-  return { session, user: filteredUser };
+  return { session, user };
 }
+
+export type SessionUser = Awaited<ReturnType<typeof validateSessionToken>>["user"];
 
 export async function invalidateSession(sessionId: string): Promise<void> {
   await db.delete(sessionTable).where(eq(sessionTable.id, sessionId));
