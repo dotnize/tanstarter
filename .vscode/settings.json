@@ -16,9 +16,7 @@
     "**/build": true,
     "**/node_modules": true,
 
-    "postcss.config.js": true,
-    ".editorconfig": true,
-    ".prettierrc": true
+    ".gitattributes": true
   },
 
   // always choose typescript from node_modules
