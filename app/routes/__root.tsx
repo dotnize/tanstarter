@@ -5,7 +5,7 @@ import {
   Outlet,
   ScrollRestoration,
 } from "@tanstack/react-router";
-import { Body, Head, Html, Meta, Scripts } from "@tanstack/start";
+import { Meta, Scripts } from "@tanstack/start";
 import { lazy, Suspense } from "react";
 
 import { getUser } from "~/server/functions";
@@ -52,11 +52,11 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <Html>
-      <Head>
+    <html>
+      <head>
         <Meta />
-      </Head>
-      <Body>
+      </head>
+      <body>
         {children}
         <ScrollRestoration />
         <ReactQueryDevtools buttonPosition="bottom-left" />
@@ -74,7 +74,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                     )`,
           }}
         ></script>
-      </Body>
-    </Html>
+      </body>
+    </html>
   );
 }
