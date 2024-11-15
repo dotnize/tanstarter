@@ -107,7 +107,7 @@ export const google = new Google(
 );
 
 /**
- * Retrieves the session and user data if it exists.
+ * Retrieves the session and user data if valid.
  * Can be used in API routes and server functions.
  */
 export async function getAuthSession({ refreshCookie } = { refreshCookie: true }) {
