@@ -1,8 +1,9 @@
 import { sha256 } from "@oslojs/crypto/sha2";
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from "@oslojs/encoding";
+import { createMiddleware } from "@tanstack/start";
 import { Discord, GitHub, Google } from "arctic";
 import { eq } from "drizzle-orm";
-import { deleteCookie, getCookie, setCookie } from "vinxi/http";
+import { deleteCookie, getCookie, setCookie, setResponseStatus } from "vinxi/http";
 
 import { db } from "~/server/db";
 import {
@@ -120,3 +121,17 @@ export const google = new Google(
   process.env.GOOGLE_CLIENT_SECRET as string,
   process.env.GOOGLE_REDIRECT_URI as string,
 );
+
+/**
+ * Middleware to force authentication on a server function, and add the user to the context.
+ */
+export const authMiddleware = createMiddleware().server(async ({ next }) => {
+  const { user } = await getAuthSession();
+
+  if (!user) {
+    setResponseStatus(401);
+    throw new Error("Unauthorized");
+  }
+
+  return next({ context: { user } });
+});
