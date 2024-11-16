@@ -1,9 +1,8 @@
 import { sha256 } from "@oslojs/crypto/sha2";
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from "@oslojs/encoding";
-import { createMiddleware } from "@tanstack/start";
 import { Discord, GitHub, Google } from "arctic";
 import { eq } from "drizzle-orm";
-import { deleteCookie, getCookie, setCookie, setResponseStatus } from "vinxi/http";
+import { deleteCookie, getCookie, setCookie } from "vinxi/http";
 
 import { db } from "~/server/db";
 import {
@@ -125,17 +124,3 @@ export async function getAuthSession({ refreshCookie } = { refreshCookie: true }
   }
   return { session, user };
 }
-
-/**
- * Middleware to force authentication on a server function, and add the user to the context.
- */
-export const authMiddleware = createMiddleware().server(async ({ next }) => {
-  const { user } = await getAuthSession();
-
-  if (!user) {
-    setResponseStatus(401);
-    throw new Error("Unauthorized");
-  }
-
-  return next({ context: { user } });
-});
