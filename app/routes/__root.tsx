@@ -31,20 +31,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     const user = await getUser();
     return { user };
   },
+  head: () => ({
+    meta: [
+      {
+        charSet: "utf-8",
+      },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
+      },
+      {
+        title: "TanStarter",
+      },
+    ],
+    links: [{ rel: "stylesheet", href: appCss }],
+  }),
   component: RootComponent,
-  meta: () => [
-    {
-      charSet: "utf-8",
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1",
-    },
-    {
-      title: "TanStarter",
-    },
-  ],
-  links: () => [{ rel: "stylesheet", href: appCss }],
 });
 
 function RootComponent() {
