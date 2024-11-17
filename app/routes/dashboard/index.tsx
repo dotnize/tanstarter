@@ -4,7 +4,7 @@ export const Route = createFileRoute("/dashboard/")({
   component: DashboardIndex,
 });
 
-export default function DashboardIndex() {
+function DashboardIndex() {
   return (
     <div className="flex flex-col gap-1">
       Dashboard index page

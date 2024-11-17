@@ -12,7 +12,7 @@ export const Route = createFileRoute("/signin")({
   },
 });
 
-export default function AuthPage() {
+function AuthPage() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="flex flex-col items-center gap-8 rounded-xl border bg-card p-10">
