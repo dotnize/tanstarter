@@ -18,6 +18,18 @@
 
     ".gitattributes": true
   },
+  "files.readonlyInclude": {
+    "**/routeTree.gen.ts": true,
+    "pnpm-lock.yaml": true
+  },
+  "files.watcherExclude": {
+    "**/routeTree.gen.ts": true,
+    "pnpm-lock.yaml": true
+  },
+  "search.exclude": {
+    "**/routeTree.gen.ts": true,
+    "pnpm-lock.yaml": true
+  },
 
   // always choose typescript from node_modules
   "typescript.tsdk": "./node_modules/typescript/lib",
