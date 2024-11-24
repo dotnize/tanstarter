@@ -57,7 +57,7 @@ function RootComponent() {
   );
 }
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootDocument({ children }: { readonly children: React.ReactNode }) {
   return (
     <html>
       <head>
