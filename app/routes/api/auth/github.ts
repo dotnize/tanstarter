@@ -4,7 +4,7 @@ import { setCookie, setHeader } from "vinxi/http";
 
 import { github } from "~/server/auth";
 
-export const Route = createAPIFileRoute("/api/auth/github")({
+export const APIRoute = createAPIFileRoute("/api/auth/github")({
   GET: async () => {
     const state = generateState();
 

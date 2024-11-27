@@ -22,7 +22,7 @@ interface GoogleUser {
   locale: string;
 }
 
-export const Route = createAPIFileRoute("/api/auth/callback/google")({
+export const APIRoute = createAPIFileRoute("/api/auth/callback/google")({
   GET: async ({ request }) => {
     const url = new URL(request.url);
     const code = url.searchParams.get("code");

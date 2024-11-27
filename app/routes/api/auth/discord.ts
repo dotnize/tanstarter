@@ -4,7 +4,7 @@ import { setCookie, setHeader } from "vinxi/http";
 
 import { discord } from "~/server/auth";
 
-export const Route = createAPIFileRoute("/api/auth/discord")({
+export const APIRoute = createAPIFileRoute("/api/auth/discord")({
   GET: async () => {
     const state = generateState();
 

@@ -4,7 +4,7 @@ import { setCookie, setHeader } from "vinxi/http";
 
 import { google } from "~/server/auth";
 
-export const Route = createAPIFileRoute("/api/auth/google")({
+export const APIRoute = createAPIFileRoute("/api/auth/google")({
   GET: async () => {
     const state = generateState();
     const codeVerifier = generateCodeVerifier();

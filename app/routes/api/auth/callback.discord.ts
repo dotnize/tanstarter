@@ -20,7 +20,7 @@ interface DiscordUser {
   verified: boolean;
 }
 
-export const Route = createAPIFileRoute("/api/auth/callback/discord")({
+export const APIRoute = createAPIFileRoute("/api/auth/callback/discord")({
   GET: async ({ request }) => {
     const url = new URL(request.url);
     const code = url.searchParams.get("code");

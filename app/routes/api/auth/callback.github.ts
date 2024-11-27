@@ -20,7 +20,7 @@ interface GitHubUser {
   login: string;
 }
 
-export const Route = createAPIFileRoute("/api/auth/callback/github")({
+export const APIRoute = createAPIFileRoute("/api/auth/callback/github")({
   GET: async ({ request }) => {
     const url = new URL(request.url);
     const code = url.searchParams.get("code");
