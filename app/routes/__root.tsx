@@ -3,6 +3,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   createRootRouteWithContext,
   Outlet,
+  ScriptOnce,
   ScrollRestoration,
 } from "@tanstack/react-router";
 import { createServerFn, Meta, Scripts } from "@tanstack/start";
@@ -70,17 +71,15 @@ function RootDocument({ children }: { readonly children: React.ReactNode }) {
         <Suspense>
           <TanStackRouterDevtools position="bottom-right" />
         </Suspense>
+
+        <ScriptOnce>
+          {`document.documentElement.classList.toggle(
+            'dark',
+            localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+            )`}
+        </ScriptOnce>
+
         <Scripts />
-        {/* eslint-disable-next-line @eslint-react/dom/no-dangerously-set-innerhtml */}
-        <script
-          id="theme"
-          dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.toggle(
-                      'dark',
-                      localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-                    )`,
-          }}
-        ></script>
       </body>
     </html>
   );
