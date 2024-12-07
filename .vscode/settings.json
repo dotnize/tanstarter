@@ -1,21 +1,6 @@
 {
   // hide misc files that we most likely don't need to see
   "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true,
-    "**/.vinxi": true,
-    "**/.vercel": true,
-    "**/.netlify": true,
-    "**/.wrangler": true,
-    "**/dist": true,
-    "**/out": true,
-    "**/build": true,
-    "**/node_modules": true,
-
     ".gitattributes": true
   },
   "files.readonlyInclude": {
