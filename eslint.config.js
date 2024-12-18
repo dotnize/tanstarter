@@ -51,6 +51,8 @@ export default tseslint.config(
     rules: {
       // You can override any rules here
       // "@eslint-react/prefer-read-only-props": "off",
+      // "@eslint-react/no-forward-ref": "off",
+      // "@eslint-react/no-context-provider": "off",
     },
   },
 );
