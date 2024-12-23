@@ -19,8 +19,8 @@ export const user = pgTable("user", {
 export const oauthAccount = pgTable(
   "oauth_account",
   {
-    provider_id: text(),
-    provider_user_id: text(),
+    provider_id: text().notNull(),
+    provider_user_id: text().notNull(),
     user_id: integer()
       .notNull()
       .references(() => user.id),
