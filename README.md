@@ -20,15 +20,23 @@ Auth providers:
 2. Install dependencies:
 
    ```bash
-   pnpm install # or npm install
+   pnpm install # npm install
    ```
 
 3. Create a `.env` file based on [`.env.example`](./.env.example).
 
-4. Run the development server:
+4. Push the schema to your database with drizzle-kit:
 
    ```bash
-   pnpm dev # or npm run dev
+   pnpm db push # npm run db push
+   ```
+
+   https://orm.drizzle.team/docs/migrations
+
+5. Run the development server:
+
+   ```bash
+   pnpm dev # npm run dev
    ```
 
    The development server should be now running at [http://localhost:3000](http://localhost:3000).
@@ -40,11 +48,11 @@ Auth providers:
 2. Build the application:
 
    ```bash
-   pnpm build # or npm run build
+   pnpm build # npm run build
    ```
 
 3. If building for Node, you start the application via:
 
    ```bash
-   pnpm start # or npm start
+   pnpm start # npm start
    ```
