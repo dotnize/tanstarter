@@ -7,9 +7,9 @@ import {
   discord,
   generateSessionToken,
   setSessionTokenCookie,
-} from "~/server/auth";
-import { db } from "~/server/db";
-import { oauthAccount, user } from "~/server/db/schema";
+} from "~/lib/server/auth";
+import { db } from "~/lib/server/db";
+import { oauthAccount, user } from "~/lib/server/db/schema";
 
 interface DiscordUser {
   id: string;

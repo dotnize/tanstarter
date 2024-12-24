@@ -9,8 +9,8 @@ import {
 import { createServerFn, Meta, Scripts } from "@tanstack/start";
 import { lazy, Suspense } from "react";
 
-import { getAuthSession } from "~/server/auth";
-import appCss from "~/styles/app.css?url";
+import { getAuthSession } from "~/lib/server/auth";
+import appCss from "~/lib/styles/app.css?url";
 
 const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
@@ -60,7 +60,8 @@ function RootComponent() {
 
 function RootDocument({ children }: { readonly children: React.ReactNode }) {
   return (
-    <html>
+    // suppress since we're updating the "dark" class in a custom script below
+    <html suppressHydrationWarning>
       <head>
         <Meta />
       </head>

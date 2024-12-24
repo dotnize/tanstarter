@@ -1,6 +1,10 @@
 import { createAPIFileRoute } from "@tanstack/start/api";
 import { deleteCookie, setHeader } from "vinxi/http";
-import { getAuthSession, invalidateSession, SESSION_COOKIE_NAME } from "~/server/auth";
+import {
+  getAuthSession,
+  invalidateSession,
+  SESSION_COOKIE_NAME,
+} from "~/lib/server/auth";
 
 export const APIRoute = createAPIFileRoute("/api/auth/logout")({
   POST: async () => {

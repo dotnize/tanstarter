@@ -2,7 +2,7 @@ import { createAPIFileRoute } from "@tanstack/start/api";
 import { generateState } from "arctic";
 import { setCookie, setHeader } from "vinxi/http";
 
-import { discord } from "~/server/auth";
+import { discord } from "~/lib/server/auth";
 
 export const APIRoute = createAPIFileRoute("/api/auth/discord")({
   GET: async () => {
