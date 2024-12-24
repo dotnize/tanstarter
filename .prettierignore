@@ -4,4 +4,4 @@ yarn.lock
 bun.lockb
 
 routeTree.gen.ts
-drizzle/
+.drizzle/
