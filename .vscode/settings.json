@@ -28,9 +28,5 @@
   // set prettier as default formatter for json, ts, tsx, js, jsx, html, css
   "[json][jsonc][typescript][typescriptreact][javascript][javascriptreact][html][css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-
-  // auto-format on save & paste
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true
+  }
 }
