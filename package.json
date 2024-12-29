@@ -9,11 +9,11 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "db": "drizzle-kit",
-    "ui": "pnpm dlx shadcn@latest"
+    "ui": "pnpm dlx shadcn@latest",
+    "auth": "pnpm dlx @better-auth/cli@latest",
+    "auth:generate": "pnpm dlx @better-auth/cli@latest generate --y --output ./lib/server/schema/auth.schema.ts && prettier --write ./lib/server/schema/auth.schema.ts"
   },
   "dependencies": {
-    "@oslojs/crypto": "^1.0.1",
-    "@oslojs/encoding": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.1",
     "@tanstack/react-query": "^5.62.11",
     "@tanstack/react-query-devtools": "^5.62.11",
@@ -22,7 +22,7 @@
     "@tanstack/router-devtools": "^1.92.9",
     "@tanstack/start": "^1.92.10",
     "@vitejs/plugin-react": "^4.3.4",
-    "arctic": "^2.3.3",
+    "better-auth": "^1.1.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.38.3",

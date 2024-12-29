@@ -1,5 +1,6 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { Button } from "~/lib/components/ui/button";
+import authClient from "~/lib/utils/auth-client";
 
 export const Route = createFileRoute("/signin")({
   component: AuthPage,
@@ -17,22 +18,38 @@ function AuthPage() {
     <div className="flex min-h-screen items-center justify-center">
       <div className="flex flex-col items-center gap-8 rounded-xl border bg-card p-10">
         Logo here
-        <form method="GET" className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
           <Button
-            formAction="/api/auth/discord"
-            type="submit"
+            onClick={() => {
+              authClient.signIn.social({ provider: "discord" });
+            }}
+            type="button"
             variant="outline"
             size="lg"
           >
             Sign in with Discord
           </Button>
-          <Button formAction="/api/auth/github" type="submit" variant="outline" size="lg">
+          <Button
+            onClick={() => {
+              authClient.signIn.social({ provider: "github" });
+            }}
+            type="button"
+            variant="outline"
+            size="lg"
+          >
             Sign in with GitHub
           </Button>
-          <Button formAction="/api/auth/google" type="submit" variant="outline" size="lg">
+          <Button
+            onClick={() => {
+              authClient.signIn.social({ provider: "google" });
+            }}
+            type="button"
+            variant="outline"
+            size="lg"
+          >
             Sign in with Google
           </Button>
-        </form>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute, useRouter } from "@tanstack/react-router";
 import { Button } from "~/lib/components/ui/button";
+import authClient from "~/lib/utils/auth-client";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -7,6 +8,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { user } = Route.useRouteContext();
+  const router = useRouter();
 
   return (
     <div className="flex flex-col gap-4 p-6">
@@ -29,11 +31,18 @@ function Home() {
             <pre>{JSON.stringify(user, null, 2)}</pre>
           </div>
 
-          <form method="POST" action="/api/auth/logout">
-            <Button type="submit" className="w-fit" variant="destructive" size="lg">
-              Sign out
-            </Button>
-          </form>
+          <Button
+            onClick={async () => {
+              await authClient.signOut();
+              router.invalidate();
+            }}
+            type="button"
+            className="w-fit"
+            variant="destructive"
+            size="lg"
+          >
+            Sign out
+          </Button>
         </div>
       ) : (
         <div className="flex flex-col gap-2">
