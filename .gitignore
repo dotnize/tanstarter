@@ -6,6 +6,7 @@ yarn.lock
 .cache
 .env
 
+.data
 .vercel
 .output
 .vinxi
@@ -17,4 +18,5 @@ dist
 /server/build
 /public/build
 
+# docker-compose db
 db
