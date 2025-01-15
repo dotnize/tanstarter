@@ -17,3 +17,6 @@ dist
 /api/
 /server/build
 /public/build
+
+# docker-compose db
+db
