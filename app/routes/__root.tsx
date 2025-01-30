@@ -1,11 +1,6 @@
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import {
-  createRootRouteWithContext,
-  Outlet,
-  ScriptOnce,
-  ScrollRestoration,
-} from "@tanstack/react-router";
+import { createRootRouteWithContext, Outlet, ScriptOnce } from "@tanstack/react-router";
 import { createServerFn, Meta, Scripts } from "@tanstack/start";
 import { getWebRequest } from "@tanstack/start/server";
 import { lazy, Suspense } from "react";
@@ -70,7 +65,6 @@ function RootDocument({ children }: { readonly children: React.ReactNode }) {
       </head>
       <body>
         {children}
-        <ScrollRestoration />
         <ReactQueryDevtools buttonPosition="bottom-left" />
         <Suspense>
           <TanStackRouterDevtools position="bottom-right" />
