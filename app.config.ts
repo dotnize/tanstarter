@@ -11,7 +11,7 @@ export default defineConfig({
   },
 
   server: {
-    // https://tanstack.com/router/latest/docs/framework/react/start/hosting#deployment
+    // https://tanstack.com/start/latest/docs/framework/react/hosting#deployment
     // preset: "netlify",
   },
 });
