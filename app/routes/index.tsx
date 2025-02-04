@@ -1,4 +1,5 @@
 import { Link, createFileRoute, useRouter } from "@tanstack/react-router";
+import ThemeToggle from "~/lib/components/ThemeToggle";
 import { Button } from "~/lib/components/ui/button";
 import authClient from "~/lib/utils/auth-client";
 
@@ -55,6 +56,8 @@ function Home() {
           </Button>
         </div>
       )}
+
+      <ThemeToggle />
 
       <a
         className="text-muted-foreground underline hover:text-foreground"

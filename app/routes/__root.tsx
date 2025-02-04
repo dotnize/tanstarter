@@ -64,18 +64,19 @@ function RootDocument({ children }: { readonly children: React.ReactNode }) {
         <Meta />
       </head>
       <body>
-        {children}
-        <ReactQueryDevtools buttonPosition="bottom-left" />
-        <Suspense>
-          <TanStackRouterDevtools position="bottom-right" />
-        </Suspense>
-
         <ScriptOnce>
           {`document.documentElement.classList.toggle(
             'dark',
             localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
             )`}
         </ScriptOnce>
+
+        {children}
+
+        <ReactQueryDevtools buttonPosition="bottom-left" />
+        <Suspense>
+          <TanStackRouterDevtools position="bottom-right" />
+        </Suspense>
 
         <Scripts />
       </body>
