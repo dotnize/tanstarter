@@ -1,8 +1,4 @@
 {
-  // hide misc files that we most likely don't need to see
-  "files.exclude": {
-    ".gitattributes": true
-  },
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true,
     "pnpm-lock.yaml": true,
@@ -17,6 +13,13 @@
     "**/routeTree.gen.ts": true,
     "pnpm-lock.yaml": true,
     "bun.lock": true
+  },
+
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts",
+    "app.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig, .gitattributes, bun.lock"
   },
 
   // always choose typescript from node_modules
