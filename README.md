@@ -6,8 +6,7 @@ A minimal starter template for 🏝️ TanStack Start.
 - [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
 - [Drizzle ORM](https://orm.drizzle.team/) + PostgreSQL
 - [Better Auth](https://www.better-auth.com/) with OAuth2 for GitHub, Google, and Discord.
-
-> If you're looking for an implementation based on the [Lucia Auth](https://lucia-auth.com) guide, check out the [`lucia-auth`](https://github.com/dotnize/tanstarter/tree/lucia-auth) branch.
+- [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/) + [Husky](https://typicode.github.io/husky/)
 
 ## Getting Started
 
@@ -38,6 +37,8 @@ A minimal starter template for 🏝️ TanStack Start.
    ```
 
    The development server should be now running at [http://localhost:3000](http://localhost:3000).
+
+   For other scripts, check the [package.json](./package.json#L5) file.
 
 ## Building for production
 
