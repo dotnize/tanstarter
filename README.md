@@ -6,7 +6,6 @@ A minimal starter template for 🏝️ TanStack Start.
 - [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
 - [Drizzle ORM](https://orm.drizzle.team/) + PostgreSQL
 - [Better Auth](https://www.better-auth.com/) with OAuth2 for GitHub, Google, and Discord.
-- [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/) + [Husky](https://typicode.github.io/husky/)
 
 ## Getting Started
 
