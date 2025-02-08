@@ -11,7 +11,14 @@ import { auth } from "~/lib/server/auth";
 export const authMiddleware = createMiddleware().server(async ({ next }) => {
   const { headers } = getWebRequest()!;
 
-  const session = await auth.api.getSession({ headers });
+  const session = await auth.api.getSession({
+    headers,
+    query: {
+      // ensure session is fresh
+      // https://www.better-auth.com/docs/concepts/session-management#session-caching
+      disableCookieCache: true,
+    },
+  });
 
   if (!session) {
     setResponseStatus(401);
