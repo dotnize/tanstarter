@@ -1,5 +1,6 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { Button, type ButtonProps } from "~/lib/components/ui/button";
+import { type ComponentProps } from "react";
+import { Button } from "~/lib/components/ui/button";
 import { cn } from "~/lib/utils";
 import authClient from "~/lib/utils/auth-client";
 
@@ -43,7 +44,7 @@ function AuthPage() {
   );
 }
 
-interface SignInButtonProps extends ButtonProps {
+interface SignInButtonProps extends ComponentProps<typeof Button> {
   provider: "discord" | "google" | "github";
   label: string;
 }
