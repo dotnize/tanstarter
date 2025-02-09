@@ -19,9 +19,7 @@ A minimal starter template for 🏝️ TanStack Start.
 
 3. Create a `.env` file based on [`.env.example`](./.env.example).
 
-4. In your OAuth2 apps, set the callback/redirect URIs to `http://localhost:3000/api/auth/callback/<provider>` (e.g. http://localhost:3000/api/auth/callback/github).
-
-5. Push the schema to your database with drizzle-kit:
+4. Push the schema to your database with drizzle-kit:
 
    ```bash
    pnpm db push # npm run db push
@@ -29,7 +27,7 @@ A minimal starter template for 🏝️ TanStack Start.
 
    https://orm.drizzle.team/docs/migrations
 
-6. Run the development server:
+5. Run the development server:
 
    ```bash
    pnpm dev # npm run dev
@@ -37,7 +35,21 @@ A minimal starter template for 🏝️ TanStack Start.
 
    The development server should be now running at [http://localhost:3000](http://localhost:3000).
 
-   For other scripts, check the [package.json](./package.json#L5) file.
+## Goodies
+
+#### Scripts
+
+These scripts in [package.json](./package.json#L5) use pnpm by default, but you can update them to use other package managers if you prefer.
+
+- **`auth:generate`** - Regenerate the [auth db schema](./lib/server/schema/auth.schema.ts) if you've made changes to your Better Auth [config](./lib/server/auth.ts).
+- **`db`** - Run drizzle-kit commands. (e.g. `pnpm db generate` to generate a migration)
+- **`ui`** - The shadcn/ui CLI. (e.g. `pnpm ui add button` to add the button component)
+- **`format`** and **`lint`** - Run Prettier and ESLint.
+
+#### Utilities
+
+- [`auth-guard.ts`](./lib/middleware/auth-guard.ts) - Sample middleware for forcing authentication on server functions. ([see #5](https://github.com/dotnize/tanstarter/issues/5))
+- [`ThemeToggle.tsx`](./lib/components/ThemeToggle.tsx) - A simple component to toggle between light and dark mode. ([#7](https://github.com/dotnize/tanstarter/issues/7))
 
 ## Building for production
 
@@ -54,6 +66,11 @@ A minimal starter template for 🏝️ TanStack Start.
    ```bash
    pnpm start # npm start
    ```
+
+## Issue watchlist
+
+- https://github.com/shadcn-ui/ui/issues/6585 - We're using the `canary` version of shadcn/ui for Tailwind CSS v4 support.
+- https://github.com/lucide-icons/lucide/issues/2743, https://github.com/lucide-icons/lucide/issues/2775 - `lucide-react` is currently locked to 0.470.0 due to crashing deployments.
 
 ## Acknowledgements
 
