@@ -1,7 +1,13 @@
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { createRootRouteWithContext, Outlet, ScriptOnce } from "@tanstack/react-router";
-import { createServerFn, Meta, Scripts } from "@tanstack/start";
+import {
+  createRootRouteWithContext,
+  HeadContent,
+  Outlet,
+  ScriptOnce,
+  Scripts,
+} from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/start";
 import { getWebRequest } from "@tanstack/start/server";
 import { lazy, Suspense } from "react";
 
@@ -61,7 +67,7 @@ function RootDocument({ children }: { readonly children: React.ReactNode }) {
     // suppress since we're updating the "dark" class in a custom script below
     <html suppressHydrationWarning>
       <head>
-        <Meta />
+        <HeadContent />
       </head>
       <body>
         <ScriptOnce>
