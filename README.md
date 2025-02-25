@@ -69,7 +69,7 @@ These scripts in [package.json](./package.json#L5) use pnpm by default, but you 
 
 ## Issue watchlist
 
-- https://github.com/shadcn-ui/ui/issues/6585 - We're using the `canary` version of shadcn/ui for Tailwind CSS v4 support.
+- https://github.com/shadcn-ui/ui/discussions/6714 - We're using the `canary` version of shadcn/ui for Tailwind v4 support.
 - https://github.com/lucide-icons/lucide/issues/2743, https://github.com/lucide-icons/lucide/issues/2775 - `lucide-react` is currently locked to 0.470.0 due to crashing deployments.
 
 ## Acknowledgements
