@@ -7,8 +7,8 @@ import {
   ScriptOnce,
   Scripts,
 } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/start";
-import { getWebRequest } from "@tanstack/start/server";
+import { createServerFn } from "@tanstack/react-start";
+import { getWebRequest } from "@tanstack/react-start/server";
 import { lazy, Suspense } from "react";
 
 import { auth } from "~/lib/server/auth";
