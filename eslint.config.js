@@ -3,6 +3,7 @@ import js from "@eslint/js";
 import pluginQuery from "@tanstack/eslint-plugin-query";
 import pluginRouter from "@tanstack/eslint-plugin-router";
 import eslintConfigPrettier from "eslint-config-prettier";
+import reactCompiler from "eslint-plugin-react-compiler";
 import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 import tseslint from "typescript-eslint";
@@ -36,6 +37,7 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
     },
   },
+  reactCompiler.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {

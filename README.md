@@ -2,8 +2,9 @@
 
 A minimal starter template for 🏝️ TanStack Start.
 
+- [React 19](https://react.dev) + [React Compiler](https://react.dev/learn/react-compiler)
 - TanStack [Start](https://tanstack.com/start/latest) + [Router](https://tanstack.com/router/latest) + [Query](https://tanstack.com/query/latest)
-- [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
+- [Tailwind CSS v4](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
 - [Drizzle ORM](https://orm.drizzle.team/) + PostgreSQL
 - [Better Auth](https://www.better-auth.com/) with OAuth2 for GitHub, Google, and Discord.
 
@@ -35,6 +36,12 @@ A minimal starter template for 🏝️ TanStack Start.
 
    The development server should be now running at [http://localhost:3000](http://localhost:3000).
 
+## Issue watchlist
+
+- [React Compiler docs](https://react.dev/learn/react-compiler), [Working Group discussions](https://github.com/reactwg/react-compiler/discussions) - React Compiler is still in beta. You can disable it in [app.config.ts](./app.config.ts) if you prefer.
+- https://github.com/TanStack/router/discussions/2863 - TanStack Start is currently in beta and may still undergo major changes.
+- https://github.com/shadcn-ui/ui/discussions/6714 - We're using the `canary` version of shadcn/ui for Tailwind v4 support.
+
 ## Goodies
 
 #### Scripts
@@ -53,23 +60,7 @@ These scripts in [package.json](./package.json#L5) use pnpm by default, but you 
 
 ## Building for production
 
-1. Configure [`app.config.ts`](./app.config.ts#L15) for your preferred deployment target. Read the [hosting](https://tanstack.com/start/latest/docs/framework/react/hosting#deployment) docs for more information.
-
-2. Build the application:
-
-   ```bash
-   pnpm build # npm run build
-   ```
-
-3. If building for Node, you start the application via:
-
-   ```bash
-   pnpm start # npm start
-   ```
-
-## Issue watchlist
-
-- https://github.com/shadcn-ui/ui/discussions/6714 - We're using the `canary` version of shadcn/ui for Tailwind v4 support.
+Read the [hosting docs](https://tanstack.com/start/latest/docs/framework/react/hosting) for information on how to deploy your TanStack Start app.
 
 ## Acknowledgements
 
