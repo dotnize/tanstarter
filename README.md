@@ -6,7 +6,7 @@ A minimal starter template for 🏝️ TanStack Start.
 - TanStack [Start](https://tanstack.com/start/latest) + [Router](https://tanstack.com/router/latest) + [Query](https://tanstack.com/query/latest)
 - [Tailwind CSS v4](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
 - [Drizzle ORM](https://orm.drizzle.team/) + PostgreSQL
-- [Better Auth](https://www.better-auth.com/) with OAuth2 for GitHub, Google, and Discord.
+- [Better Auth](https://www.better-auth.com/)
 
 ## Getting Started
 
@@ -38,15 +38,21 @@ A minimal starter template for 🏝️ TanStack Start.
 
 ## Issue watchlist
 
-- [React Compiler docs](https://react.dev/learn/react-compiler), [Working Group discussions](https://github.com/reactwg/react-compiler/discussions) - React Compiler is still in beta. You can disable it in [app.config.ts](./app.config.ts) if you prefer.
+- [React Compiler docs](https://react.dev/learn/react-compiler), [Working Group](https://github.com/reactwg/react-compiler/discussions) - React Compiler is still in beta. You can disable it in [app.config.ts](./app.config.ts#L15) if you prefer.
 - https://github.com/TanStack/router/discussions/2863 - TanStack Start is currently in beta and may still undergo major changes.
 - https://github.com/shadcn-ui/ui/discussions/6714 - We're using the `canary` version of shadcn/ui for Tailwind v4 support.
+
+## Auth
+
+Better Auth is currently configured for OAuth with GitHub, Google, and Discord, but can be easily modified to use other providers.
+
+If you want to use email/password authentication or change providers, update the [auth config](./lib/server/auth.ts#L36) and [signin page](./app/routes/signin.tsx) with your own UI. The [shadcn/ui login blocks](https://ui.shadcn.com/blocks/login) can be a good starting point.
 
 ## Goodies
 
 #### Scripts
 
-These scripts in [package.json](./package.json#L5) use pnpm by default, but you can update them to use other package managers if you prefer.
+These scripts in [package.json](./package.json#L5) use **pnpm** by default, but you can modify them to use your preferred package manager.
 
 - **`auth:generate`** - Regenerate the [auth db schema](./lib/server/schema/auth.schema.ts) if you've made changes to your Better Auth [config](./lib/server/auth.ts).
 - **`db`** - Run drizzle-kit commands. (e.g. `pnpm db generate` to generate a migration)
