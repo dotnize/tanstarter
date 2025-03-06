@@ -46,7 +46,7 @@ A minimal starter template for 🏝️ TanStack Start.
 
 Better Auth is currently configured for OAuth with GitHub, Google, and Discord, but can be easily modified to use other providers.
 
-If you want to use email/password authentication or change providers, update the [auth config](./lib/server/auth.ts#L36) and [signin page](./app/routes/signin.tsx) with your own UI. The [shadcn/ui login blocks](https://ui.shadcn.com/blocks/login) can be a good starting point.
+If you want to use email/password authentication or change providers, update the [auth config](./lib/server/auth.ts#L36) and [signin page](./app/routes/signin.tsx) with your own UI. You can use [shadcn/ui login blocks](https://ui.shadcn.com/blocks/login) or [@daveyplate/better-auth-ui](https://better-auth-ui.com/) as a starting point.
 
 ## Goodies
 
