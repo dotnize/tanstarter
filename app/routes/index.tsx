@@ -6,12 +6,12 @@ import authClient from "~/lib/utils/auth-client";
 export const Route = createFileRoute("/")({
   component: Home,
   loader: ({ context }) => {
-    return { user: context.user };
+    return context;
   },
 });
 
 function Home() {
-  const { user } = Route.useLoaderData();
+  const { user, queryClient } = Route.useLoaderData();
   const router = useRouter();
 
   return (
@@ -38,7 +38,8 @@ function Home() {
           <Button
             onClick={async () => {
               await authClient.signOut();
-              router.invalidate();
+              await queryClient.invalidateQueries({ queryKey: ["user"] });
+              await router.invalidate();
             }}
             type="button"
             className="w-fit"

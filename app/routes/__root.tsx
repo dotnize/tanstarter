@@ -1,4 +1,4 @@
-import type { QueryClient } from "@tanstack/react-query";
+import { queryOptions, type QueryClient } from "@tanstack/react-query";
 import {
   createRootRouteWithContext,
   HeadContent,
@@ -22,9 +22,14 @@ const getUser = createServerFn({ method: "GET" }).handler(async () => {
   return session?.user || null;
 });
 
+const userQuery = queryOptions({
+  queryKey: ["user"],
+  queryFn: ({ signal }) => getUser({ signal }),
+});
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  beforeLoad: async () => {
-    const user = await getUser();
+  beforeLoad: async ({ context }) => {
+    const user = await context.queryClient.fetchQuery(userQuery);
     return { user };
   },
   head: () => ({
