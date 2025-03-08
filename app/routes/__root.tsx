@@ -1,5 +1,4 @@
 import type { QueryClient } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   createRootRouteWithContext,
   HeadContent,
@@ -9,20 +8,12 @@ import {
 } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest } from "@tanstack/react-start/server";
-import { lazy, Suspense } from "react";
+
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import { auth } from "~/lib/server/auth";
 import appCss from "~/lib/styles/app.css?url";
-
-const TanStackRouterDevtools =
-  process.env.NODE_ENV === "production"
-    ? () => null // Render nothing in production
-    : lazy(() =>
-        // Lazy load in development
-        import("@tanstack/router-devtools").then((res) => ({
-          default: res.TanStackRouterDevtools,
-        })),
-      );
 
 const getUser = createServerFn({ method: "GET" }).handler(async () => {
   const { headers } = getWebRequest()!;
@@ -80,9 +71,7 @@ function RootDocument({ children }: { readonly children: React.ReactNode }) {
         {children}
 
         <ReactQueryDevtools buttonPosition="bottom-left" />
-        <Suspense>
-          <TanStackRouterDevtools position="bottom-right" />
-        </Suspense>
+        <TanStackRouterDevtools position="bottom-right" />
 
         <Scripts />
       </body>
