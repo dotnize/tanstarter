@@ -27,7 +27,10 @@ const userQuery = queryOptions({
   queryFn: ({ signal }) => getUser({ signal }),
 });
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient;
+  user: Awaited<ReturnType<typeof getUser>>;
+}>()({
   beforeLoad: async ({ context }) => {
     const user = await context.queryClient.fetchQuery(userQuery);
     return { user };
