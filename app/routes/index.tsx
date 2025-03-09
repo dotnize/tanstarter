@@ -6,12 +6,13 @@ import authClient from "~/lib/utils/auth-client";
 export const Route = createFileRoute("/")({
   component: Home,
   loader: ({ context }) => {
-    return context;
+    return { user: context.user };
   },
 });
 
 function Home() {
-  const { user, queryClient } = Route.useLoaderData();
+  const { queryClient } = Route.useRouteContext();
+  const { user } = Route.useLoaderData();
   const router = useRouter();
 
   return (
