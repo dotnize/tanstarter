@@ -1,4 +1,4 @@
-import { queryOptions, type QueryClient } from "@tanstack/react-query";
+import type { QueryClient } from "@tanstack/react-query";
 import {
   createRootRouteWithContext,
   HeadContent,
@@ -22,17 +22,15 @@ const getUser = createServerFn({ method: "GET" }).handler(async () => {
   return session?.user || null;
 });
 
-const userQuery = queryOptions({
-  queryKey: ["user"],
-  queryFn: ({ signal }) => getUser({ signal }),
-});
-
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
   user: Awaited<ReturnType<typeof getUser>>;
 }>()({
   beforeLoad: async ({ context }) => {
-    const user = await context.queryClient.fetchQuery(userQuery);
+    const user = await context.queryClient.fetchQuery({
+      queryKey: ["user"],
+      queryFn: ({ signal }) => getUser({ signal }),
+    }); // we're using react-query for caching, see router.tsx
     return { user };
   },
   head: () => ({
