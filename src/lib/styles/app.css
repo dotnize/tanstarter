@@ -1,8 +1,4 @@
-@import "tailwindcss" source(none);
-
-/* lib & app */
-@source "../";
-@source "../../app";
+@import "tailwindcss" source("../../");
 
 @plugin "tailwindcss-animate";
 

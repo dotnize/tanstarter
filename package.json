@@ -11,7 +11,7 @@
     "db": "drizzle-kit",
     "ui": "pnpm dlx shadcn@canary",
     "auth": "pnpm dlx @better-auth/cli@latest",
-    "auth:generate": "pnpm dlx @better-auth/cli@latest generate --y --output ./lib/server/schema/auth.schema.ts && prettier --write ./lib/server/schema/auth.schema.ts"
+    "auth:generate": "pnpm dlx @better-auth/cli@latest generate --y --output ./src/lib/server/schema/auth.schema.ts && prettier --write ./src/lib/server/schema/auth.schema.ts"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",

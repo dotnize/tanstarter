@@ -26,6 +26,11 @@ export default defineConfig({
     },
   },
 
+  tsr: {
+    // https://github.com/TanStack/router/discussions/2863#discussioncomment-12458714
+    appDirectory: "./src",
+  },
+
   server: {
     // https://tanstack.com/start/latest/docs/framework/react/hosting#deployment
     // preset: "netlify",
