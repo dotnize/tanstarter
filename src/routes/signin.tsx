@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { type ComponentProps } from "react";
+import type { ComponentProps } from "react";
 import authClient from "~/lib/auth-client";
 import { Button } from "~/lib/components/ui/button";
 import { cn } from "~/lib/utils";
@@ -59,7 +59,6 @@ function SignInButton({ provider, label, className, ...props }: SignInButtonProp
         })
       }
       type="button"
-      variant="outline"
       size="lg"
       className={cn("text-white hover:text-white", className)}
       {...props}
