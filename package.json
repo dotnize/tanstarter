@@ -40,6 +40,7 @@
     "@tailwindcss/vite": "^4.0.14",
     "@tanstack/eslint-plugin-query": "^5.68.0",
     "@tanstack/eslint-plugin-router": "^1.114.12",
+    "@types/node": "^22.13.10",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "babel-plugin-react-compiler": "latest",
