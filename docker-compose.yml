@@ -1,10 +1,14 @@
 services:
   db:
-    image: postgres:17.2-alpine
+    image: postgres:alpine
     ports:
       - 5432:5432
     volumes:
-      - ./db:/var/lib/postgresql/data
+      - postgres_data_tanstarter:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=secret
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=tanstarter
+
+volumes:
+  postgres_data_tanstarter:
