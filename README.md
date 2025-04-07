@@ -58,6 +58,7 @@ These scripts in [package.json](./package.json#L5) use **pnpm** by default, but 
 - **`db`** - Run drizzle-kit commands. (e.g. `pnpm db generate` to generate a migration)
 - **`ui`** - The shadcn/ui CLI. (e.g. `pnpm ui add button` to add the button component)
 - **`format`** and **`lint`** - Run Prettier and ESLint.
+- **`deps`** - Selectively upgrade dependencies via npm-check-updates.
 
 #### Utilities
 
