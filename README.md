@@ -34,12 +34,12 @@ A minimal starter template for 🏝️ TanStack Start.
    pnpm dev # npm run dev
    ```
 
-   The development server should be now running at [http://localhost:3000](http://localhost:3000).
+   The development server should now be running at [http://localhost:3000](http://localhost:3000).
 
 ## Issue watchlist
 
 - [React Compiler docs](https://react.dev/learn/react-compiler), [Working Group](https://github.com/reactwg/react-compiler/discussions) - React Compiler is still in beta. You can disable it in [app.config.ts](./app.config.ts#L15) if you prefer.
-- https://github.com/TanStack/router/discussions/2863 - TanStack Start is currently in beta and may still undergo major changes.
+- https://github.com/TanStack/router/discussions/2863 - TanStack Start is in beta and may still undergo major changes.
 
 ## Auth
 
