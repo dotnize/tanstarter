@@ -1,8 +1,18 @@
+# lockfiles
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
 bun.lock
 
+# misc
 routeTree.gen.ts
 drizzle/
 .drizzle/
+
+# build outputs
+.vercel
+.output
+.vinxi
+.wrangler
+.netlify
+dist
