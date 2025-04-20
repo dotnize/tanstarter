@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import type { ComponentProps } from "react";
+import { Button } from "~/components/ui/button";
 import authClient from "~/lib/auth-client";
-import { Button } from "~/lib/components/ui/button";
 import { cn } from "~/lib/utils";
 
 const REDIRECT_URL = "/dashboard";
