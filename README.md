@@ -1,6 +1,6 @@
 # [React TanStarter](https://github.com/dotnize/react-tanstarter)
 
-A minimal starter template for 🏝️ TanStack Start.
+A minimal starter template for 🏝️ TanStack Start. [→ Preview here](https://tanstarter.nize.ph/)
 
 - [React 19](https://react.dev) + [React Compiler](https://react.dev/learn/react-compiler)
 - TanStack [Start](https://tanstack.com/start/latest) + [Router](https://tanstack.com/router/latest) + [Query](https://tanstack.com/query/latest)
@@ -40,12 +40,6 @@ A minimal starter template for 🏝️ TanStack Start.
 
 - [React Compiler docs](https://react.dev/learn/react-compiler), [Working Group](https://github.com/reactwg/react-compiler/discussions) - React Compiler is still in beta. You can disable it in [app.config.ts](./app.config.ts#L15) if you prefer.
 - https://github.com/TanStack/router/discussions/2863 - TanStack Start is in beta and may still undergo major changes.
-
-## Auth
-
-Better Auth is currently configured for OAuth with GitHub, Google, and Discord, but can be easily modified to use other providers.
-
-If you want to use email/password authentication or change providers, update the [auth config](./src/lib/server/auth.ts#L36) and [signin page](./src/routes/signin.tsx) with your own UI. You can use [shadcn/ui login blocks](https://ui.shadcn.com/blocks/login) as a starting point.
 
 ## Goodies
 

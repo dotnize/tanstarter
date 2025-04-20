@@ -45,6 +45,10 @@ export const Route = createRootRouteWithContext<{
       {
         title: "React TanStarter",
       },
+      {
+        name: "description",
+        content: "A minimal starter template for 🏝️ TanStack Start.",
+      },
     ],
     links: [{ rel: "stylesheet", href: appCss }],
   }),

@@ -5,7 +5,7 @@ export const Route = createFileRoute("/dashboard")({
   component: DashboardLayout,
   beforeLoad: async ({ context }) => {
     if (!context.user) {
-      throw redirect({ to: "/signin" });
+      throw redirect({ to: "/login" });
     }
 
     // `context.queryClient` is also available in our loaders
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/dashboard")({
 
 function DashboardLayout() {
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center gap-10 p-2">
+    <div className="flex min-h-svh flex-col items-center justify-center gap-10 p-2">
       <div className="flex flex-col items-center gap-4">
         <h1 className="text-4xl font-bold">Dashboard Layout</h1>
         <div className="flex items-center gap-2">
