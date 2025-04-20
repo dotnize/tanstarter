@@ -16,17 +16,19 @@ function Home() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col gap-4 p-6">
-      <h1 className="text-4xl font-bold">React TanStarter</h1>
-      <div className="flex items-center gap-2">
-        This is an unprotected page:
-        <pre className="bg-card text-card-foreground rounded-md border p-1">
-          routes/index.tsx
-        </pre>
+    <div className="flex min-h-svh flex-col items-center justify-center gap-10 p-2">
+      <div className="flex flex-col items-center gap-4">
+        <h1 className="text-4xl font-bold">React TanStarter</h1>
+        <div className="flex items-center gap-2">
+          This is an unprotected page:
+          <pre className="bg-card text-card-foreground rounded-md border p-1">
+            routes/index.tsx
+          </pre>
+        </div>
       </div>
 
       {user ? (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col items-center gap-2">
           <p>Welcome back, {user.name}!</p>
           <Button type="button" asChild className="w-fit" size="lg">
             <Link to="/dashboard">Go to Dashboard</Link>
@@ -51,7 +53,7 @@ function Home() {
           </Button>
         </div>
       ) : (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col items-center gap-2">
           <p>You are not signed in.</p>
           <Button type="button" asChild className="w-fit" size="lg">
             <Link to="/signin">Sign in</Link>
@@ -59,16 +61,17 @@ function Home() {
         </div>
       )}
 
-      <ThemeToggle />
-
-      <a
-        className="text-muted-foreground hover:text-foreground underline"
-        href="https://github.com/dotnize/react-tanstarter"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        dotnize/react-tanstarter
-      </a>
+      <div className="flex flex-col items-center gap-2">
+        <ThemeToggle />
+        <a
+          className="text-muted-foreground hover:text-foreground underline"
+          href="https://github.com/dotnize/react-tanstarter"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          dotnize/react-tanstarter
+        </a>
+      </div>
     </div>
   );
 }
