@@ -18,8 +18,8 @@ function Home() {
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-10 p-2">
       <div className="flex flex-col items-center gap-4">
-        <h1 className="text-4xl font-bold">React TanStarter</h1>
-        <div className="flex items-center gap-2">
+        <h1 className="text-3xl font-bold sm:text-4xl">React TanStarter</h1>
+        <div className="flex items-center gap-2 max-sm:flex-col">
           This is an unprotected page:
           <pre className="bg-card text-card-foreground rounded-md border p-1">
             routes/index.tsx
@@ -30,12 +30,14 @@ function Home() {
       {user ? (
         <div className="flex flex-col items-center gap-2">
           <p>Welcome back, {user.name}!</p>
-          <Button type="button" asChild className="w-fit" size="lg">
+          <Button type="button" asChild className="mb-2 w-fit" size="lg">
             <Link to="/dashboard">Go to Dashboard</Link>
           </Button>
-          <div>
-            More data:
-            <pre>{JSON.stringify(user, null, 2)}</pre>
+          <div className="text-center text-xs sm:text-sm">
+            Session user:
+            <pre className="max-w-screen overflow-x-auto px-2 text-start">
+              {JSON.stringify(user, null, 2)}
+            </pre>
           </div>
 
           <Button
