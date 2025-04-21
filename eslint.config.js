@@ -5,10 +5,8 @@ import pluginRouter from "@tanstack/eslint-plugin-router";
 import eslintConfigPrettier from "eslint-config-prettier";
 import reactCompiler from "eslint-plugin-react-compiler";
 import reactHooks from "eslint-plugin-react-hooks";
-import globals from "globals";
 import tseslint from "typescript-eslint";
 
-// TODO: clean up for better composability
 export default tseslint.config(
   {
     ignores: ["dist", ".vinxi", ".wrangler", ".vercel", ".netlify", ".output", "build/"],
@@ -23,20 +21,7 @@ export default tseslint.config(
       ...pluginRouter.configs["flat/recommended"],
     ],
   },
-  {
-    files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-      },
-    },
-    plugins: {
-      "react-hooks": reactHooks,
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-    },
-  },
+  reactHooks.configs.recommended,
   reactCompiler.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
