@@ -3,8 +3,7 @@ import js from "@eslint/js";
 import pluginQuery from "@tanstack/eslint-plugin-query";
 import pluginRouter from "@tanstack/eslint-plugin-router";
 import eslintConfigPrettier from "eslint-config-prettier";
-import reactCompiler from "eslint-plugin-react-compiler";
-import reactHooks from "eslint-plugin-react-hooks";
+import * as reactHooks from "eslint-plugin-react-hooks";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
@@ -22,7 +21,6 @@ export default tseslint.config(
     ],
   },
   reactHooks.configs.recommended,
-  reactCompiler.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
@@ -37,10 +35,7 @@ export default tseslint.config(
   {
     rules: {
       // You can override any rules here
-      // "@eslint-react/prefer-read-only-props": "off",
-      // "@eslint-react/no-forward-ref": "off",
-      // "@eslint-react/no-context-provider": "off",
-      // "react-compiler/react-compiler": "warn",
+      "react-hooks/react-compiler": "warn",
     },
   },
 );
