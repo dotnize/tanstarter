@@ -1,0 +1,44 @@
+import tailwindcss from "@tailwindcss/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { defineConfig, loadEnv } from "vite";
+import tsConfigPaths from "vite-tsconfig-paths";
+
+export default defineConfig(async ({ mode }) => {
+  // https://discord.com/channels/719702312431386674/1238170697650405547/1371507529980444884
+  // temporary workaround?
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd(), "") };
+
+  return {
+    plugins: [
+      tsConfigPaths({
+        projects: ["./tsconfig.json"],
+      }),
+      tailwindcss(),
+      tanstackStart({
+        // https://react.dev/learn/react-compiler
+        react: {
+          babel: {
+            plugins: [
+              [
+                "babel-plugin-react-compiler",
+                {
+                  target: "19",
+                },
+              ],
+            ],
+          },
+        },
+
+        tsr: {
+          quoteStyle: "double",
+          semicolons: true,
+        },
+
+        server: {
+          // https://tanstack.com/start/latest/docs/framework/react/hosting#deployment
+          // preset: "netlify",
+        },
+      }),
+    ],
+  };
+});

@@ -8,48 +8,50 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import type { CreateFileRoute, FileRoutesByPath } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as DashboardRouteImport } from './routes/dashboard/route'
-import { Route as authRouteImport } from './routes/(auth)/route'
-import { Route as IndexImport } from './routes/index'
-import { Route as DashboardIndexImport } from './routes/dashboard/index'
-import { Route as authSignupImport } from './routes/(auth)/signup'
-import { Route as authLoginImport } from './routes/(auth)/login'
+import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
+import { Route as authRouteRouteImport } from './routes/(auth)/route'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as authSignupRouteImport } from './routes/(auth)/signup'
+import { Route as authLoginRouteImport } from './routes/(auth)/login'
 
 // Create/Update Routes
 
-const DashboardRouteRoute = DashboardRouteImport.update({
+const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => rootRoute,
 } as any)
 
-const authRouteRoute = authRouteImport.update({
+const authRouteRoute = authRouteRouteImport.update({
   id: '/(auth)',
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const DashboardIndexRoute = DashboardIndexImport.update({
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
-const authSignupRoute = authSignupImport.update({
+const authSignupRoute = authSignupRouteImport.update({
   id: '/signup',
   path: '/signup',
   getParentRoute: () => authRouteRoute,
 } as any)
 
-const authLoginRoute = authLoginImport.update({
+const authLoginRoute = authLoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => authRouteRoute,
@@ -63,45 +65,102 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexImport
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRoute
     }
     '/(auth)': {
       id: '/(auth)'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof authRouteImport
+      preLoaderRoute: typeof authRouteRouteImport
       parentRoute: typeof rootRoute
     }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
+      preLoaderRoute: typeof DashboardRouteRouteImport
       parentRoute: typeof rootRoute
     }
     '/(auth)/login': {
       id: '/(auth)/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof authLoginImport
-      parentRoute: typeof authRouteImport
+      preLoaderRoute: typeof authLoginRouteImport
+      parentRoute: typeof authRouteRouteImport
     }
     '/(auth)/signup': {
       id: '/(auth)/signup'
       path: '/signup'
       fullPath: '/signup'
-      preLoaderRoute: typeof authSignupImport
-      parentRoute: typeof authRouteImport
+      preLoaderRoute: typeof authSignupRouteImport
+      parentRoute: typeof authRouteRouteImport
     }
     '/dashboard/': {
       id: '/dashboard/'
       path: '/'
       fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexImport
-      parentRoute: typeof DashboardRouteImport
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRouteRouteImport
     }
   }
+}
+
+// Add type-safety to the createFileRoute function across the route tree
+
+declare module './routes/index' {
+  const createFileRoute: CreateFileRoute<
+    '/',
+    FileRoutesByPath['/']['parentRoute'],
+    FileRoutesByPath['/']['id'],
+    FileRoutesByPath['/']['path'],
+    FileRoutesByPath['/']['fullPath']
+  >
+}
+declare module './routes/(auth)/route' {
+  const createFileRoute: CreateFileRoute<
+    '/(auth)',
+    FileRoutesByPath['/(auth)']['parentRoute'],
+    FileRoutesByPath['/(auth)']['id'],
+    FileRoutesByPath['/(auth)']['path'],
+    FileRoutesByPath['/(auth)']['fullPath']
+  >
+}
+declare module './routes/dashboard/route' {
+  const createFileRoute: CreateFileRoute<
+    '/dashboard',
+    FileRoutesByPath['/dashboard']['parentRoute'],
+    FileRoutesByPath['/dashboard']['id'],
+    FileRoutesByPath['/dashboard']['path'],
+    FileRoutesByPath['/dashboard']['fullPath']
+  >
+}
+declare module './routes/(auth)/login' {
+  const createFileRoute: CreateFileRoute<
+    '/(auth)/login',
+    FileRoutesByPath['/(auth)/login']['parentRoute'],
+    FileRoutesByPath['/(auth)/login']['id'],
+    FileRoutesByPath['/(auth)/login']['path'],
+    FileRoutesByPath['/(auth)/login']['fullPath']
+  >
+}
+declare module './routes/(auth)/signup' {
+  const createFileRoute: CreateFileRoute<
+    '/(auth)/signup',
+    FileRoutesByPath['/(auth)/signup']['parentRoute'],
+    FileRoutesByPath['/(auth)/signup']['id'],
+    FileRoutesByPath['/(auth)/signup']['path'],
+    FileRoutesByPath['/(auth)/signup']['fullPath']
+  >
+}
+declare module './routes/dashboard/index' {
+  const createFileRoute: CreateFileRoute<
+    '/dashboard/',
+    FileRoutesByPath['/dashboard/']['parentRoute'],
+    FileRoutesByPath['/dashboard/']['id'],
+    FileRoutesByPath['/dashboard/']['path'],
+    FileRoutesByPath['/dashboard/']['fullPath']
+  >
 }
 
 // Create and export the route tree
