@@ -1,4 +1,4 @@
-import { auth } from "~/lib/server/auth";
+import { auth } from "~/lib/auth";
 
 export const ServerRoute = createServerFileRoute().methods({
   GET: ({ request }) => {
