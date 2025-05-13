@@ -26,7 +26,7 @@
     "tsconfig.json": "tsconfig.*.json, env.d.ts",
     "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
     "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig, .gitattributes, bun.lock",
-    "router.tsx": "routeTree.gen.ts, tanstack-start.d.ts"
+    "routeTree.gen.ts": "tanstack-start.d.ts"
   },
 
   // always choose typescript from node_modules
