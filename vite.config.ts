@@ -34,10 +34,8 @@ export default defineConfig(async ({ mode }) => {
           semicolons: true,
         },
 
-        server: {
-          // https://tanstack.com/start/latest/docs/framework/react/hosting#deployment
-          // preset: "netlify",
-        },
+        // https://tanstack.com/start/latest/docs/framework/react/hosting#deployment
+        // target: "netlify",
       }),
     ],
   };

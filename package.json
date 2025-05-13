@@ -43,7 +43,7 @@
     "@tanstack/eslint-plugin-router": "alpha",
     "@types/node": "^22.15.17",
     "@types/react": "^19.1.4",
-    "@types/react-dom": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
     "babel-plugin-react-compiler": "latest",
     "drizzle-kit": "^0.31.1",
     "eslint": "^9.26.0",
