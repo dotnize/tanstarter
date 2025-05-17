@@ -5,7 +5,7 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "src/lib/styles/app.css",
+    "css": "src/styles.css",
     "baseColor": "zinc",
     "cssVariables": true,
     "prefix": ""
@@ -15,7 +15,7 @@
     "utils": "~/lib/utils",
     "ui": "~/components/ui",
     "lib": "~/lib",
-    "hooks": "~/lib/hooks"
+    "hooks": "~/hooks"
   },
   "iconLibrary": "lucide"
 }

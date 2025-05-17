@@ -6,13 +6,14 @@ bun.lock
 
 # misc
 routeTree.gen.ts
+.tanstack-start/
+tanstack-start.d.ts
 drizzle/
 .drizzle/
 
 # build outputs
 .vercel
 .output
-.vinxi
 .wrangler
 .netlify
 dist
