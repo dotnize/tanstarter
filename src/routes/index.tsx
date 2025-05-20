@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Link, useRouter } from "@tanstack/react-router";
 import ThemeToggle from "~/components/ThemeToggle";
 import { Button } from "~/components/ui/button";
@@ -11,8 +12,8 @@ export const Route = createFileRoute({
 });
 
 function Home() {
-  const { queryClient } = Route.useRouteContext();
   const { user } = Route.useLoaderData();
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   return (

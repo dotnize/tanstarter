@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { GalleryVerticalEnd, LoaderCircle } from "lucide-react";
 import { useState } from "react";
@@ -11,7 +12,8 @@ export const Route = createFileRoute({
 });
 
 function LoginForm() {
-  const { redirectUrl, queryClient } = Route.useRouteContext();
+  const { redirectUrl } = Route.useRouteContext();
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
