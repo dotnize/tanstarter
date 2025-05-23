@@ -1,9 +1,10 @@
-import { Link, createFileRoute, useRouter } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Link, useRouter } from "@tanstack/react-router";
 import ThemeToggle from "~/components/ThemeToggle";
 import { Button } from "~/components/ui/button";
-import authClient from "~/lib/auth-client";
+import authClient from "~/lib/auth/auth-client";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute({
   component: Home,
   loader: ({ context }) => {
     return { user: context.user };
@@ -11,8 +12,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const { queryClient } = Route.useRouteContext();
   const { user } = Route.useLoaderData();
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   return (

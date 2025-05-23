@@ -13,7 +13,6 @@ node_modules
 .data
 .vercel
 .output
-.vinxi
 .wrangler
 .netlify
 dist
