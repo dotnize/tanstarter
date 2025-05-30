@@ -49,7 +49,7 @@ A minimal starter template for 🏝️ TanStack Start. [→ Preview here](https:
 ## Issue watchlist
 
 - [React Compiler docs](https://react.dev/learn/react-compiler), [Working Group](https://github.com/reactwg/react-compiler/discussions) - React Compiler is in RC.
-- https://github.com/TanStack/router/discussions/2863 - TanStack Start may still undergo major changes.
+- https://github.com/TanStack/router/discussions/2863 - TanStack Start may still undergo breaking changes.
 
 ## Goodies
 
