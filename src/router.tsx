@@ -11,7 +11,7 @@ export function createRouter() {
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
-        staleTime: 1000 * 60, // 1 minute
+        staleTime: 1000 * 60 * 2, // 2 minutes
       },
     },
   });
