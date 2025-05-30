@@ -8,6 +8,11 @@ A minimal starter template for 🏝️ TanStack Start. [→ Preview here](https:
 - [Drizzle ORM](https://orm.drizzle.team/) + PostgreSQL
 - [Better Auth](https://www.better-auth.com/)
 
+> [!IMPORTANT]
+> We're using the alpha branch of TanStack Start for the upcoming Devinxi changes. Start & Router versions are currently pinned to `"alpha"` in package.json.
+>
+> https://github.com/TanStack/router/discussions/2863#discussioncomment-13104960
+
 ## Getting Started
 
 1. [Use this template](https://github.com/new?template_name=react-tanstarter&template_owner=dotnize) or clone this repository with gitpick:
@@ -44,7 +49,7 @@ A minimal starter template for 🏝️ TanStack Start. [→ Preview here](https:
 ## Issue watchlist
 
 - [React Compiler docs](https://react.dev/learn/react-compiler), [Working Group](https://github.com/reactwg/react-compiler/discussions) - React Compiler is in RC.
-- https://github.com/TanStack/router/discussions/2863 - TanStack Start is in beta and may still undergo major changes.
+- https://github.com/TanStack/router/discussions/2863 - TanStack Start may still undergo major changes.
 
 ## Goodies
 
