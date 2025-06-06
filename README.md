@@ -71,3 +71,7 @@ These scripts in [package.json](./package.json#L5) use **pnpm** by default, but 
 ## Building for production
 
 Read the [hosting docs](https://tanstack.com/start/latest/docs/framework/react/hosting) for information on how to deploy your TanStack Start app.
+
+## License
+
+Code in this template is public domain via [Unlicense](./LICENSE). Feel free to remove or replace for your own project.
