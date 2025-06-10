@@ -1,27 +1,19 @@
 {
-  "files.exclude": {
-    // see tsr.tempDir in vite.config.ts
-    // hidden since this is always empty after the routeTree is generated anyway
-    "**/.tsr-temp": true
-  },
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true,
-    "**/.tanstack-start/**/*": true,
-    "**/.tsr-temp/**/*": true,
+    "**/.tanstack/**/*": true,
     "pnpm-lock.yaml": true,
     "bun.lock": true
   },
   "files.watcherExclude": {
     "**/routeTree.gen.ts": true,
-    "**/.tanstack-start/**/*": true,
-    "**/.tsr-temp/**/*": true,
+    "**/.tanstack/**/*": true,
     "pnpm-lock.yaml": true,
     "bun.lock": true
   },
   "search.exclude": {
     "**/routeTree.gen.ts": true,
-    "**/.tanstack-start/**/*": true,
-    "**/.tsr-temp/**/*": true,
+    "**/.tanstack/**/*": true,
     "pnpm-lock.yaml": true,
     "bun.lock": true
   },

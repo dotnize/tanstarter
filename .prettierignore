@@ -6,8 +6,7 @@ bun.lock
 
 # misc
 routeTree.gen.ts
-.tanstack-start/
-.tsr-temp/
+.tanstack/
 drizzle/
 .drizzle/
 

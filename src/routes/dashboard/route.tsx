@@ -1,7 +1,7 @@
-import { Link, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router";
 import { Button } from "~/components/ui/button";
 
-export const Route = createFileRoute({
+export const Route = createFileRoute("/dashboard")({
   component: DashboardLayout,
   beforeLoad: async ({ context }) => {
     if (!context.user) {

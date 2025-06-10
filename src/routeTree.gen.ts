@@ -8,11 +8,6 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import type { CreateFileRoute, FileRoutesByPath } from "@tanstack/react-router";
-import type {
-  CreateServerFileRoute,
-  ServerFileRoutesByPath,
-} from "@tanstack/react-start/server";
 import { createServerRootRoute } from "@tanstack/react-start/server";
 
 import { Route as rootRouteImport } from "./routes/__root";
@@ -230,126 +225,6 @@ declare module "@tanstack/react-start/server" {
       parentRoute: typeof rootServerRouteImport;
     };
   }
-}
-
-declare module "./routes/index" {
-  const createFileRoute: CreateFileRoute<
-    "/",
-    FileRoutesByPath["/"]["parentRoute"],
-    FileRoutesByPath["/"]["id"],
-    FileRoutesByPath["/"]["path"],
-    FileRoutesByPath["/"]["fullPath"]
-  >;
-
-  const createServerFileRoute: CreateServerFileRoute<
-    ServerFileRoutesByPath["/"]["parentRoute"],
-    ServerFileRoutesByPath["/"]["id"],
-    ServerFileRoutesByPath["/"]["path"],
-    ServerFileRoutesByPath["/"]["fullPath"],
-    unknown
-  >;
-}
-declare module "./routes/(auth)/route" {
-  const createFileRoute: CreateFileRoute<
-    "/(auth)",
-    FileRoutesByPath["/(auth)"]["parentRoute"],
-    FileRoutesByPath["/(auth)"]["id"],
-    FileRoutesByPath["/(auth)"]["path"],
-    FileRoutesByPath["/(auth)"]["fullPath"]
-  >;
-
-  const createServerFileRoute: CreateServerFileRoute<
-    ServerFileRoutesByPath["/(auth)"]["parentRoute"],
-    ServerFileRoutesByPath["/(auth)"]["id"],
-    ServerFileRoutesByPath["/(auth)"]["path"],
-    ServerFileRoutesByPath["/(auth)"]["fullPath"],
-    unknown
-  >;
-}
-declare module "./routes/dashboard/route" {
-  const createFileRoute: CreateFileRoute<
-    "/dashboard",
-    FileRoutesByPath["/dashboard"]["parentRoute"],
-    FileRoutesByPath["/dashboard"]["id"],
-    FileRoutesByPath["/dashboard"]["path"],
-    FileRoutesByPath["/dashboard"]["fullPath"]
-  >;
-
-  const createServerFileRoute: CreateServerFileRoute<
-    ServerFileRoutesByPath["/dashboard"]["parentRoute"],
-    ServerFileRoutesByPath["/dashboard"]["id"],
-    ServerFileRoutesByPath["/dashboard"]["path"],
-    ServerFileRoutesByPath["/dashboard"]["fullPath"],
-    unknown
-  >;
-}
-declare module "./routes/(auth)/login" {
-  const createFileRoute: CreateFileRoute<
-    "/(auth)/login",
-    FileRoutesByPath["/(auth)/login"]["parentRoute"],
-    FileRoutesByPath["/(auth)/login"]["id"],
-    FileRoutesByPath["/(auth)/login"]["path"],
-    FileRoutesByPath["/(auth)/login"]["fullPath"]
-  >;
-
-  const createServerFileRoute: CreateServerFileRoute<
-    ServerFileRoutesByPath["/(auth)/login"]["parentRoute"],
-    ServerFileRoutesByPath["/(auth)/login"]["id"],
-    ServerFileRoutesByPath["/(auth)/login"]["path"],
-    ServerFileRoutesByPath["/(auth)/login"]["fullPath"],
-    unknown
-  >;
-}
-declare module "./routes/(auth)/signup" {
-  const createFileRoute: CreateFileRoute<
-    "/(auth)/signup",
-    FileRoutesByPath["/(auth)/signup"]["parentRoute"],
-    FileRoutesByPath["/(auth)/signup"]["id"],
-    FileRoutesByPath["/(auth)/signup"]["path"],
-    FileRoutesByPath["/(auth)/signup"]["fullPath"]
-  >;
-
-  const createServerFileRoute: CreateServerFileRoute<
-    ServerFileRoutesByPath["/(auth)/signup"]["parentRoute"],
-    ServerFileRoutesByPath["/(auth)/signup"]["id"],
-    ServerFileRoutesByPath["/(auth)/signup"]["path"],
-    ServerFileRoutesByPath["/(auth)/signup"]["fullPath"],
-    unknown
-  >;
-}
-declare module "./routes/dashboard/index" {
-  const createFileRoute: CreateFileRoute<
-    "/dashboard/",
-    FileRoutesByPath["/dashboard/"]["parentRoute"],
-    FileRoutesByPath["/dashboard/"]["id"],
-    FileRoutesByPath["/dashboard/"]["path"],
-    FileRoutesByPath["/dashboard/"]["fullPath"]
-  >;
-
-  const createServerFileRoute: CreateServerFileRoute<
-    ServerFileRoutesByPath["/dashboard/"]["parentRoute"],
-    ServerFileRoutesByPath["/dashboard/"]["id"],
-    ServerFileRoutesByPath["/dashboard/"]["path"],
-    ServerFileRoutesByPath["/dashboard/"]["fullPath"],
-    unknown
-  >;
-}
-declare module "./routes/api/auth/$" {
-  const createFileRoute: CreateFileRoute<
-    "/api/auth/$",
-    FileRoutesByPath["/api/auth/$"]["parentRoute"],
-    FileRoutesByPath["/api/auth/$"]["id"],
-    FileRoutesByPath["/api/auth/$"]["path"],
-    FileRoutesByPath["/api/auth/$"]["fullPath"]
-  >;
-
-  const createServerFileRoute: CreateServerFileRoute<
-    ServerFileRoutesByPath["/api/auth/$"]["parentRoute"],
-    ServerFileRoutesByPath["/api/auth/$"]["id"],
-    ServerFileRoutesByPath["/api/auth/$"]["path"],
-    ServerFileRoutesByPath["/api/auth/$"]["fullPath"],
-    unknown
-  >;
 }
 
 interface authRouteRouteChildren {

@@ -21,4 +21,4 @@ dist
 /server/build
 /public/build
 
-.tsr-temp
+.tanstack
