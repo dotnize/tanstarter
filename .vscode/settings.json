@@ -1,22 +1,27 @@
 {
+  "files.exclude": {
+    // see tsr.tempDir in vite.config.ts
+    // hidden since this is always empty after the routeTree is generated anyway
+    "**/.tsr-temp": true
+  },
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true,
     "**/.tanstack-start/**/*": true,
-    "tanstack-start.d.ts": true,
+    "**/.tsr-temp/**/*": true,
     "pnpm-lock.yaml": true,
     "bun.lock": true
   },
   "files.watcherExclude": {
     "**/routeTree.gen.ts": true,
     "**/.tanstack-start/**/*": true,
-    "tanstack-start.d.ts": true,
+    "**/.tsr-temp/**/*": true,
     "pnpm-lock.yaml": true,
     "bun.lock": true
   },
   "search.exclude": {
     "**/routeTree.gen.ts": true,
     "**/.tanstack-start/**/*": true,
-    "tanstack-start.d.ts": true,
+    "**/.tsr-temp/**/*": true,
     "pnpm-lock.yaml": true,
     "bun.lock": true
   },
@@ -25,8 +30,7 @@
   "explorer.fileNesting.patterns": {
     "tsconfig.json": "tsconfig.*.json, env.d.ts",
     "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
-    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig, .gitattributes, bun.lock",
-    "routeTree.gen.ts": "tanstack-start.d.ts"
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig, .gitattributes, bun.lock"
   },
 
   // always choose typescript from node_modules

@@ -20,3 +20,5 @@ dist
 /api/
 /server/build
 /public/build
+
+.tsr-temp

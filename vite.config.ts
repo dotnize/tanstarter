@@ -27,10 +27,12 @@ export default defineConfig({
       tsr: {
         quoteStyle: "double",
         semicolons: true,
+        tmpDir: ".tsr-temp",
+        verboseFileRoutes: false,
       },
 
       // https://tanstack.com/start/latest/docs/framework/react/hosting#deployment
-      // target: "netlify",
+      // target: "node-server",
     }),
   ],
 });
