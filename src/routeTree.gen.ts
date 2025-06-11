@@ -122,11 +122,11 @@ export interface RootServerRouteChildren {
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
+    "/dashboard": {
+      id: "/dashboard";
+      path: "/dashboard";
+      fullPath: "/dashboard";
+      preLoaderRoute: typeof DashboardRouteRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/(auth)": {
@@ -136,26 +136,12 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof authRouteRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/dashboard": {
-      id: "/dashboard";
-      path: "/dashboard";
-      fullPath: "/dashboard";
-      preLoaderRoute: typeof DashboardRouteRouteImport;
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
       parentRoute: typeof rootRouteImport;
-    };
-    "/(auth)/login": {
-      id: "/(auth)/login";
-      path: "/login";
-      fullPath: "/login";
-      preLoaderRoute: typeof authLoginRouteImport;
-      parentRoute: typeof authRouteRoute;
-    };
-    "/(auth)/signup": {
-      id: "/(auth)/signup";
-      path: "/signup";
-      fullPath: "/signup";
-      preLoaderRoute: typeof authSignupRouteImport;
-      parentRoute: typeof authRouteRoute;
     };
     "/dashboard/": {
       id: "/dashboard/";
@@ -164,59 +150,24 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardIndexRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
-    "/api/auth/$": {
-      id: "/api/auth/$";
-      path: "";
-      fullPath: "/api/auth/$";
-      preLoaderRoute: unknown;
-      parentRoute: typeof rootRouteImport;
-    };
-  }
-}
-declare module "@tanstack/react-start/server" {
-  interface ServerFileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: unknown;
-      parentRoute: typeof rootServerRouteImport;
-    };
-    "/(auth)": {
-      id: "/(auth)";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: unknown;
-      parentRoute: typeof rootServerRouteImport;
-    };
-    "/dashboard": {
-      id: "/dashboard";
-      path: "/dashboard";
-      fullPath: "/dashboard";
-      preLoaderRoute: unknown;
-      parentRoute: typeof rootServerRouteImport;
+    "/(auth)/signup": {
+      id: "/(auth)/signup";
+      path: "/signup";
+      fullPath: "/signup";
+      preLoaderRoute: typeof authSignupRouteImport;
+      parentRoute: typeof authRouteRoute;
     };
     "/(auth)/login": {
       id: "/(auth)/login";
       path: "/login";
       fullPath: "/login";
-      preLoaderRoute: unknown;
-      parentRoute: typeof rootServerRouteImport;
+      preLoaderRoute: typeof authLoginRouteImport;
+      parentRoute: typeof authRouteRoute;
     };
-    "/(auth)/signup": {
-      id: "/(auth)/signup";
-      path: "/signup";
-      fullPath: "/signup";
-      preLoaderRoute: unknown;
-      parentRoute: typeof rootServerRouteImport;
-    };
-    "/dashboard/": {
-      id: "/dashboard/";
-      path: "/";
-      fullPath: "/dashboard/";
-      preLoaderRoute: unknown;
-      parentRoute: typeof rootServerRouteImport;
-    };
+  }
+}
+declare module "@tanstack/react-start/server" {
+  interface ServerFileRoutesByPath {
     "/api/auth/$": {
       id: "/api/auth/$";
       path: "/api/auth/$";
