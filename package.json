@@ -10,7 +10,7 @@
     "check-types": "tsc --noEmit",
     "format": "prettier --write .",
     "db": "drizzle-kit",
-    "deps": "pnpm dlx npm-check-updates@latest --interactive --format group",
+    "deps": "pnpm dlx taze@latest major -Iw",
     "ui": "pnpm dlx shadcn@latest",
     "auth:secret": "pnpm dlx @better-auth/cli@latest secret",
     "auth:generate": "pnpm dlx @better-auth/cli@latest generate --config ./src/lib/auth/index.ts --y --output ./src/lib/db/schema/auth.schema.ts && prettier --write ./src/lib/db/schema/auth.schema.ts"
