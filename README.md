@@ -10,6 +10,8 @@ A minimal starter template for 🏝️ TanStack Start. [→ Preview here](https:
 
 ## Getting Started
 
+We're using **pnpm** by default, but you can modify the scripts in [package.json](./package.json) to use your preferred package manager.
+
 1. [Use this template](https://github.com/new?template_name=react-tanstarter&template_owner=dotnize) or clone this repository with gitpick:
 
    ```bash
@@ -70,3 +72,8 @@ Read the [hosting docs](https://tanstack.com/start/latest/docs/framework/react/h
 ## License
 
 Code in this template is public domain via [Unlicense](./LICENSE). Feel free to remove or replace for your own project.
+
+## Also check out
+
+- [create-tsrouter-app](https://github.com/TanStack/create-tsrouter-app/tree/main/cli/create-tsrouter-app) - The official CLI tool from the TanStack team to create Router/Start applications.
+- [CarlosZiegler/fullstack-start-template](https://github.com/CarlosZiegler/fullstack-start-template) - A more batteries-included boilerplate that provides a solid foundation for building modern web apps.
